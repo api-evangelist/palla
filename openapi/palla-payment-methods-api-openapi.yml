@@ -1,0 +1,290 @@
+openapi: 3.0.3
+info:
+  title: Palla Platform Partner Accounts Payment Methods API
+  version: '1.0'
+  description: The Palla Platform API enables trusted Partners to embed cross-border peer-to-peer (P2P) money transfers into their own applications. Partners exchange client credentials for a scoped Bearer token that authorizes a specific end User, then manage that User's Account, Payment Methods, Links, Relationships, and Transfers. Responses use a consistent envelope with a `meta` block (code, path, requestId, result) plus either a `data` payload on success or an `error` object (message, rc, description) on failure. Derived from the public Palla Platform Partner Docs Postman collection; not an official Palla-published OpenAPI document.
+  contact:
+    name: Palla Financial
+    url: https://www.palla.com
+  termsOfService: https://palla.app/terms-and-conditions
+servers:
+- url: https://api.platform.palla.app
+  description: Production
+security:
+- partnerToken: []
+tags:
+- name: Payment Methods
+  description: Payment Methods are used to send and/or receive Transfers.
+paths:
+  /v1/payment-methods:
+    post:
+      operationId: createPaymentMethod
+      tags:
+      - Payment Methods
+      summary: Create Payment Method
+      description: Create a Payment Method belonging to the Account. Card data must be RSA-encrypted client-side; see PallaFinancial/card-encrypt.
+      parameters:
+      - $ref: '#/components/parameters/RequestId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePaymentMethodRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                  data:
+                    $ref: '#/components/schemas/PaymentMethod'
+        '409':
+          description: Conflict (card exists / missing identity name)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorEnvelope'
+        '412':
+          description: Precondition Failed (BIN restriction)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorEnvelope'
+        '451':
+          description: Unavailable For Legal Reasons (OFAC hit)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorEnvelope'
+    get:
+      operationId: listPaymentMethods
+      tags:
+      - Payment Methods
+      summary: List Payment Methods
+      description: List all Payment Methods belonging to the Account.
+      parameters:
+      - $ref: '#/components/parameters/RequestId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                  data:
+                    type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/PaymentMethod'
+    put:
+      operationId: updatePaymentMethod
+      tags:
+      - Payment Methods
+      summary: Update Payment Method
+      description: Update a Payment Method belonging to the Account.
+      parameters:
+      - $ref: '#/components/parameters/RequestId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePaymentMethodRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                  data:
+                    $ref: '#/components/schemas/PaymentMethod'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deletePaymentMethod
+      tags:
+      - Payment Methods
+      summary: Delete Payment Method
+      description: Delete a Payment Method by id belonging to the Account.
+      parameters:
+      - $ref: '#/components/parameters/RequestId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeletePaymentMethodRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+components:
+  schemas:
+    DeletePaymentMethodRequest:
+      type: object
+      required:
+      - paymentMethodId
+      properties:
+        paymentMethodId:
+          type: string
+          example: pmt_01FEVEE4BJ9NT7QS08ZJ9RAVZC
+    UpdatePaymentMethodRequest:
+      type: object
+      required:
+      - paymentMethodId
+      properties:
+        paymentMethodId:
+          type: string
+          example: pmt_01FW482PM57E4HT2JK2HGDBR4B
+        primary:
+          type: boolean
+        configuration:
+          type: object
+    Error:
+      type: object
+      description: Error object returned on failure responses.
+      properties:
+        message:
+          type: string
+          example: payment_methods
+        rc:
+          type: integer
+          description: Palla numeric result code
+          example: 22
+        description:
+          type: string
+          example: resource/missing
+        resource:
+          type: string
+    PaymentMethod:
+      type: object
+      properties:
+        paymentMethodId:
+          type: string
+          example: pmt_01J0Y5P8TQ950YKY7HZXRAH81A
+        type:
+          type: string
+          example: card
+        primary:
+          type: boolean
+        country:
+          type: string
+          example: US
+        brand:
+          type: string
+          example: visa
+        last4:
+          type: string
+          example: '0004'
+    Meta:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 200
+        path:
+          type: string
+          example: /v1/accounts
+        requestId:
+          type: string
+          example: my-request-id
+        result:
+          type: string
+          enum:
+          - success
+          - failure
+          example: success
+        requestCountry:
+          type: string
+          example: US
+        itemCount:
+          type: integer
+        itemLimit:
+          type: integer
+        itemOffset:
+          type: integer
+        itemTotal:
+          type: integer
+    ErrorEnvelope:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        error:
+          $ref: '#/components/schemas/Error'
+    CreatePaymentMethodRequest:
+      type: object
+      required:
+      - type
+      - primary
+      - card
+      properties:
+        type:
+          type: string
+          enum:
+          - card
+          example: card
+        primary:
+          type: boolean
+          example: true
+        card:
+          type: object
+          properties:
+            keyId:
+              type: string
+              description: Public key id used to encrypt the card data.
+            data:
+              type: string
+              description: RSA-encrypted card data (see PallaFinancial/card-encrypt).
+  parameters:
+    RequestId:
+      name: x-palla-request-id
+      in: header
+      required: false
+      description: Partner-supplied request id echoed back in meta.requestId for tracing.
+      schema:
+        type: string
+        example: my-request-id
+  responses:
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+  securitySchemes:
+    partnerToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Partner Bearer token obtained from POST /v1/auth/token via a client_credentials exchange. Scoped to a single User via user_id.
+    clientCredentials:
+      type: oauth2
+      description: Partner credential exchange (client_credentials grant). Sent as a JSON body to /v1/auth/token with client_id, client_secret, audience, and user_id; returns a Bearer token in data.token.
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.platform.palla.app/v1/auth/token
+          scopes: {}
+x-generated: '2026-07-20'
+x-method: derived
+x-source: https://documenter.getpostman.com/view/306637/TzkyP11Z (Palla Platform Partner Docs, Postman collection 306637-8e63aa5e-0996-47f9-b589-997c3e9c81bd)

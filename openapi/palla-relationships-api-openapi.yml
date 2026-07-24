@@ -1,0 +1,141 @@
+openapi: 3.0.3
+info:
+  title: Palla Platform Partner Accounts Relationships API
+  version: '1.0'
+  description: The Palla Platform API enables trusted Partners to embed cross-border peer-to-peer (P2P) money transfers into their own applications. Partners exchange client credentials for a scoped Bearer token that authorizes a specific end User, then manage that User's Account, Payment Methods, Links, Relationships, and Transfers. Responses use a consistent envelope with a `meta` block (code, path, requestId, result) plus either a `data` payload on success or an `error` object (message, rc, description) on failure. Derived from the public Palla Platform Partner Docs Postman collection; not an official Palla-published OpenAPI document.
+  contact:
+    name: Palla Financial
+    url: https://www.palla.com
+  termsOfService: https://palla.app/terms-and-conditions
+servers:
+- url: https://api.platform.palla.app
+  description: Production
+security:
+- partnerToken: []
+tags:
+- name: Relationships
+  description: A Relationship is the connection between two Accounts.
+paths:
+  /v1/relationships:
+    get:
+      operationId: listRelationships
+      tags:
+      - Relationships
+      summary: List Relationships
+      description: List all Relationships belonging to the Account, or resolve a Relationship from another Account's Link via the link-id query parameter (creating one if none exists).
+      parameters:
+      - $ref: '#/components/parameters/RequestId'
+      - name: link-id
+        in: query
+        required: false
+        description: Resolve/create a Relationship from another Account's Link id.
+        schema:
+          type: string
+          example: lnk_Cx3xqci5
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                  data:
+                    type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Relationship'
+        '422':
+          description: Unprocessable Entity (same account)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorEnvelope'
+components:
+  parameters:
+    RequestId:
+      name: x-palla-request-id
+      in: header
+      required: false
+      description: Partner-supplied request id echoed back in meta.requestId for tracing.
+      schema:
+        type: string
+        example: my-request-id
+  schemas:
+    Error:
+      type: object
+      description: Error object returned on failure responses.
+      properties:
+        message:
+          type: string
+          example: payment_methods
+        rc:
+          type: integer
+          description: Palla numeric result code
+          example: 22
+        description:
+          type: string
+          example: resource/missing
+        resource:
+          type: string
+    Meta:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 200
+        path:
+          type: string
+          example: /v1/accounts
+        requestId:
+          type: string
+          example: my-request-id
+        result:
+          type: string
+          enum:
+          - success
+          - failure
+          example: success
+        requestCountry:
+          type: string
+          example: US
+        itemCount:
+          type: integer
+        itemLimit:
+          type: integer
+        itemOffset:
+          type: integer
+        itemTotal:
+          type: integer
+    ErrorEnvelope:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        error:
+          $ref: '#/components/schemas/Error'
+    Relationship:
+      type: object
+      properties:
+        relationshipId:
+          type: string
+  securitySchemes:
+    partnerToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Partner Bearer token obtained from POST /v1/auth/token via a client_credentials exchange. Scoped to a single User via user_id.
+    clientCredentials:
+      type: oauth2
+      description: Partner credential exchange (client_credentials grant). Sent as a JSON body to /v1/auth/token with client_id, client_secret, audience, and user_id; returns a Bearer token in data.token.
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.platform.palla.app/v1/auth/token
+          scopes: {}
+x-generated: '2026-07-20'
+x-method: derived
+x-source: https://documenter.getpostman.com/view/306637/TzkyP11Z (Palla Platform Partner Docs, Postman collection 306637-8e63aa5e-0996-47f9-b589-997c3e9c81bd)

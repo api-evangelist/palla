@@ -1,0 +1,188 @@
+openapi: 3.0.3
+info:
+  title: Palla Platform Partner Accounts Auth API
+  version: '1.0'
+  description: The Palla Platform API enables trusted Partners to embed cross-border peer-to-peer (P2P) money transfers into their own applications. Partners exchange client credentials for a scoped Bearer token that authorizes a specific end User, then manage that User's Account, Payment Methods, Links, Relationships, and Transfers. Responses use a consistent envelope with a `meta` block (code, path, requestId, result) plus either a `data` payload on success or an `error` object (message, rc, description) on failure. Derived from the public Palla Platform Partner Docs Postman collection; not an official Palla-published OpenAPI document.
+  contact:
+    name: Palla Financial
+    url: https://www.palla.com
+  termsOfService: https://palla.app/terms-and-conditions
+servers:
+- url: https://api.platform.palla.app
+  description: Production
+security:
+- partnerToken: []
+tags:
+- name: Auth
+  description: Authentication endpoints return tokens for user access.
+paths:
+  /v1/auth/token:
+    post:
+      operationId: partnerCredentialExchange
+      tags:
+      - Auth
+      summary: Partner Credential Exchange
+      description: Perform a credentials exchange for a Bearer token. The token authorizes the partner for a specific User with the provided user_id. Call only from the partner's backend; the returned token is safe to hand to a web or native app for subsequent API calls.
+      security: []
+      parameters:
+      - $ref: '#/components/parameters/RequestId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+components:
+  responses:
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+  parameters:
+    RequestId:
+      name: x-palla-request-id
+      in: header
+      required: false
+      description: Partner-supplied request id echoed back in meta.requestId for tracing.
+      schema:
+        type: string
+        example: my-request-id
+  schemas:
+    TokenResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: object
+          properties:
+            token:
+              type: string
+              description: Bearer JWT for subsequent API calls.
+    TokenRequest:
+      type: object
+      required:
+      - client_id
+      - client_secret
+      - audience
+      - grant_type
+      - user_id
+      properties:
+        client_id:
+          type: string
+          description: The client id issued to the partner.
+        client_secret:
+          type: string
+          description: The client secret issued to the partner.
+        audience:
+          type: array
+          items:
+            type: string
+          example:
+          - https://api.platform.palla.app/
+        grant_type:
+          type: string
+          example: client_credentials
+        user_id:
+          type: string
+          description: The partner's id for the end User the token authorizes.
+          example: abc12345
+        mfa_code:
+          type: string
+          description: MFA code
+          when MFA is required.: null
+    Error:
+      type: object
+      description: Error object returned on failure responses.
+      properties:
+        message:
+          type: string
+          example: payment_methods
+        rc:
+          type: integer
+          description: Palla numeric result code
+          example: 22
+        description:
+          type: string
+          example: resource/missing
+        resource:
+          type: string
+    Meta:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 200
+        path:
+          type: string
+          example: /v1/accounts
+        requestId:
+          type: string
+          example: my-request-id
+        result:
+          type: string
+          enum:
+          - success
+          - failure
+          example: success
+        requestCountry:
+          type: string
+          example: US
+        itemCount:
+          type: integer
+        itemLimit:
+          type: integer
+        itemOffset:
+          type: integer
+        itemTotal:
+          type: integer
+    ErrorEnvelope:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        error:
+          $ref: '#/components/schemas/Error'
+  securitySchemes:
+    partnerToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Partner Bearer token obtained from POST /v1/auth/token via a client_credentials exchange. Scoped to a single User via user_id.
+    clientCredentials:
+      type: oauth2
+      description: Partner credential exchange (client_credentials grant). Sent as a JSON body to /v1/auth/token with client_id, client_secret, audience, and user_id; returns a Bearer token in data.token.
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.platform.palla.app/v1/auth/token
+          scopes: {}
+x-generated: '2026-07-20'
+x-method: derived
+x-source: https://documenter.getpostman.com/view/306637/TzkyP11Z (Palla Platform Partner Docs, Postman collection 306637-8e63aa5e-0996-47f9-b589-997c3e9c81bd)
