@@ -1,0 +1,48 @@
+generated: '2026-07-20'
+method: derived
+status: candidate
+source: openapi/palla-platform-openapi.yml
+note: >-
+  Palla publishes no official hosted/remote MCP server as of this pass. The tool
+  list below is a candidate derived one-to-one from the Palla Platform Partner
+  API operations, for a potential MCP wrapper. Not an authoritative Palla claim.
+server:
+  name: palla-platform
+  transport: http
+tools:
+  - name: partner_credential_exchange
+    description: Exchange partner client credentials for a user-scoped Bearer token.
+    source_operation: openapi/palla-platform-openapi.yml#partnerCredentialExchange
+  - name: create_account
+    description: Create (or idempotently update) an Account for the authorized User.
+    source_operation: openapi/palla-platform-openapi.yml#createAccount
+  - name: fetch_account_details
+    description: Get the profile data of an Account.
+    source_operation: openapi/palla-platform-openapi.yml#fetchAccountDetails
+  - name: create_payment_method
+    description: Create a Payment Method from RSA-encrypted card data.
+    source_operation: openapi/palla-platform-openapi.yml#createPaymentMethod
+  - name: list_payment_methods
+    description: List Payment Methods belonging to the Account.
+    source_operation: openapi/palla-platform-openapi.yml#listPaymentMethods
+  - name: update_payment_method
+    description: Update a Payment Method.
+    source_operation: openapi/palla-platform-openapi.yml#updatePaymentMethod
+  - name: delete_payment_method
+    description: Delete a Payment Method by id.
+    source_operation: openapi/palla-platform-openapi.yml#deletePaymentMethod
+  - name: generate_relationship_link
+    description: Create a unique relationship Link for the Account.
+    source_operation: openapi/palla-platform-openapi.yml#generateRelationshipLink
+  - name: list_links
+    description: List Links created for the Account.
+    source_operation: openapi/palla-platform-openapi.yml#listLinks
+  - name: delete_link
+    description: Delete a Link by id.
+    source_operation: openapi/palla-platform-openapi.yml#deleteLink
+  - name: list_relationships
+    description: List Relationships, or resolve one from another Account's Link.
+    source_operation: openapi/palla-platform-openapi.yml#listRelationships
+  - name: list_transfers
+    description: List Transfers sent or received by the Account.
+    source_operation: openapi/palla-platform-openapi.yml#listTransfers

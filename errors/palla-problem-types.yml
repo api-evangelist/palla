@@ -1,0 +1,83 @@
+generated: '2026-07-20'
+method: derived
+source: https://documenter.getpostman.com/view/306637/TzkyP11Z (response examples)
+format: palla-envelope
+envelope:
+  description: >-
+    Every response carries a meta block; failures add an error object. This is a
+    custom envelope, not RFC 9457 problem+json.
+  shape:
+    meta:
+      code: HTTP status code
+      path: request path
+      requestId: echoes x-palla-request-id
+      result: success | failure
+      requestCountry: (optional) resolved country
+    error:
+      message: short machine token (e.g. "payment_methods")
+      rc: Palla numeric result code
+      description: (optional) slash-delimited category (e.g. resource/missing)
+problems:
+  - status: 400
+    rc: 1
+    message: user_id
+    title: user_id required
+    remediation: Include user_id in the credential-exchange request body.
+    source_operation: openapi/palla-platform-openapi.yml#partnerCredentialExchange
+  - status: 401
+    rc: 41
+    message: audience access
+    title: Unauthorized audience
+    remediation: Request a token for an audience the partner client is authorized for.
+    source_operation: openapi/palla-platform-openapi.yml#partnerCredentialExchange
+  - status: 401
+    rc: 123
+    message: mfa required
+    title: MFA required
+    remediation: Re-submit the credential exchange with a valid mfa_code.
+    source_operation: openapi/palla-platform-openapi.yml#partnerCredentialExchange
+  - status: 403
+    message: bad credentials
+    title: Bad credentials
+    remediation: Verify client_id and client_secret.
+    source_operation: openapi/palla-platform-openapi.yml#partnerCredentialExchange
+  - status: 409
+    rc: 23
+    message: card exists
+    title: Card already exists for user
+    description: resource/conflict
+    remediation: The card is already on file for this user; reuse the existing payment method.
+    source_operation: openapi/palla-platform-openapi.yml#createPaymentMethod
+  - status: 409
+    rc: 23
+    message: too many links
+    title: Too many links
+    remediation: Delete unused Links before generating a new one.
+    source_operation: openapi/palla-platform-openapi.yml#generateRelationshipLink
+  - status: 412
+    rc: 65
+    message: card bin
+    title: BIN restriction
+    description: mismatch/issuer
+    remediation: The card BIN/issuer is not permitted for this user's country.
+    source_operation: openapi/palla-platform-openapi.yml#createPaymentMethod
+  - status: 422
+    rc: 1
+    message: same account
+    title: Same account
+    resource: relationships
+    remediation: A Relationship cannot be formed between an Account and itself.
+    source_operation: openapi/palla-platform-openapi.yml#listRelationships
+  - status: 451
+    rc: 43
+    message: ofac
+    title: OFAC hit
+    remediation: The payment instrument or party matched an OFAC screening list; the operation is blocked.
+    source_operation: openapi/palla-platform-openapi.yml#createPaymentMethod
+  - status: 404
+    rc: 22
+    message: payment_methods
+    title: Payment method missing
+    description: resource/missing
+    remediation: Verify the paymentMethodId belongs to the Account.
+    source_operation: openapi/palla-platform-openapi.yml#updatePaymentMethod

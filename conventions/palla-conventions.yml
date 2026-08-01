@@ -1,0 +1,36 @@
+generated: '2026-07-20'
+method: searched
+source: https://documenter.getpostman.com/view/306637/TzkyP11Z
+authentication:
+  style: Bearer JWT (partner token), obtained via client_credentials exchange
+  token_endpoint: POST /v1/auth/token
+  scope: token authorizes a single end User (user_id); pass to web/native app after backend exchange
+  detail: authentication/palla-authentication.yml
+idempotency:
+  supported: true
+  style: natural-key
+  detail: >-
+    POST /v1/accounts (Create Account) is idempotent: if the account already
+    exists for the authorized User, the provided values update it rather than
+    erroring. There is no dedicated Idempotency-Key header; idempotency is keyed
+    on the user-scoped token.
+  source_operation: openapi/palla-platform-openapi.yml#createAccount
+request_tracing:
+  header: x-palla-request-id
+  behavior: Partner-supplied request id is echoed back in every response as meta.requestId.
+pagination:
+  style: limit/offset
+  request_params: [limit, offset]
+  response_fields: [meta.itemCount, meta.itemLimit, meta.itemOffset, meta.itemTotal]
+  example_operation: openapi/palla-platform-openapi.yml#listTransfers
+response_envelope:
+  success: '{ meta: {code, path, requestId, result: success, ...}, data: {...} }'
+  failure: '{ meta: {code, path, requestId, result: failure, ...}, error: {message, rc, description?} }'
+  detail: errors/palla-problem-types.yml
+versioning:
+  scheme: uri-path
+  current: v1
+  detail: lifecycle/palla-lifecycle.yml
+card_data:
+  handling: Card numbers must be RSA-encrypted client-side (keyId + data) before Create Payment Method; Palla stores under PCI scope.
+  tooling: https://github.com/PallaFinancial/card-encrypt

@@ -1,0 +1,32 @@
+generated: '2026-07-20'
+method: searched
+source: https://www.palla.com/products, https://github.com/PallaFinancial/web-sdk
+loader:
+  library: palla-web-sdk
+  registry: npm
+  install: npm install palla-web-sdk
+  import: "import Palla from 'palla-web-sdk'"
+families:
+  - name: Embed
+    description: Pre-built payment components to drop into an existing app.
+    components:
+      - magic payment links
+      - transfer connections
+      - customer profiles
+      - transaction history
+      - payment requests
+  - name: Checkout
+    description: White-label transfer application with branded, personalized checkout pages ("instant transfers, anytime").
+  - name: Redirect
+    description: Secure payment capture (PCI storage) for cards and bank accounts with contact detail collection and payment-link generation.
+  - name: Web SDK
+    description: JavaScript SDK surfaces for hosted flows and embeddable UI.
+    components:
+      - name: Receiver Signup Redirect
+        api: Palla.createReceiverRedirect
+        detail: Generates a hosted receiver-signup link (flowUrl/successUrl/errorUrl), returning payment method details on the success redirect.
+      - name: Embeddable Payment IFrame
+        detail: Embeddable payment iframe with iframe events for capturing card data client-side.
+dashboard:
+  name: Palla Dashboard
+  description: Partner dashboard for end-to-end transfer tracking and organization settings.

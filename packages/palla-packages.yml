@@ -1,0 +1,19 @@
+generated: '2026-07-20'
+method: searched
+source: https://www.npmjs.com/package/palla-web-sdk, https://github.com/PallaFinancial
+packages:
+  - language: javascript
+    registry: npm
+    name: palla-web-sdk
+    version: 0.2.0
+    url: https://www.npmjs.com/package/palla-web-sdk
+    repo: https://github.com/PallaFinancial/web-sdk
+    install: npm install palla-web-sdk
+    description: Web SDK for integrating Palla's flows and embeddable UI components (receiver redirect, payment iframe).
+    official: true
+  - language: java
+    registry: github
+    name: card-encrypt
+    url: https://github.com/PallaFinancial/card-encrypt
+    description: Card encryption sample code and pre-compiled binaries for PCI-compliant card-data encryption before Create Payment Method.
+    official: true

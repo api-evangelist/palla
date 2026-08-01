@@ -1,0 +1,49 @@
+generated: '2026-07-20'
+method: searched
+spec_type: Webhooks
+source: https://documenter.getpostman.com/view/306637/TzkyP11Z (Callback API)
+description: >-
+  Palla can POST server-to-server callbacks to a partner-configured URL for
+  certain events. Callbacks must be enabled by Palla per partner and a callback
+  URL provided. The partner service must immediately return an empty 200. Today
+  the only event is Transfers Create; more are planned.
+delivery:
+  transport: https-webhook
+  method: POST
+  target: partner-configured callback URL
+  ack: return empty HTTP 200 immediately
+events:
+  - name: transfers.create
+    resource: transfers
+    action: create
+    description: Fires when a Transfer is created for the partner's User (as sender or receiver).
+    payload_fields:
+      - user_id
+      - country
+      - provider
+      - resource
+      - role
+      - action
+      - time
+      - data.transferId
+      - data.role
+      - data.total
+      - data.amount
+      - data.currency
+      - data.status
+      - data.created
+      - data.rate
+    example:
+      user_id: abc123
+      country: MX
+      provider: banco.mx
+      resource: transfers
+      role: receiver
+      action: create
+      data:
+        transferId: txr_01GKW0WSB84W886VA3QQHVZM3K
+        role: receiver
+        total: 2900
+        amount: 2900
+        currency: USD
+        status: completed

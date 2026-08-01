@@ -1,0 +1,25 @@
+# Palla
+
+> Palla Financial is a fintech infrastructure company powering instant cross-border peer-to-peer (P2P) money transfers to 180+ countries. The Palla Platform Partner API lets trusted partners embed transfers, manage a user's account, payment methods, relationship links, and transfers, and receive transfer callbacks. Backed by Cowboy Ventures.
+
+## APIs
+- [Palla Platform Partner API](https://docs.platform.palla.app): Partner API for P2P cross-border transfers (base https://api.platform.palla.app, versioned /v1)
+
+## Specs
+- [OpenAPI (derived)](openapi/palla-platform-openapi.yml): 13 operations across Auth, Accounts, Payment Methods, Links, Relationships, Transfers
+- [Webhooks](asyncapi/palla-webhooks.yml): transfers.create server-to-server callback
+- [Authentication](authentication/palla-authentication.yml): client_credentials exchange -> user-scoped Bearer JWT
+- [Conventions](conventions/palla-conventions.yml): idempotency, limit/offset pagination, x-palla-request-id tracing, meta/error envelope
+- [Error catalog](errors/palla-problem-types.yml): meta/error envelope with numeric rc codes
+- [Data model](data-model/palla-data-model.yml): Account, PaymentMethod, Link, Relationship, Transfer
+- [Conformance](conformance/palla-conformance.yml): OAuth2, PCI DSS, SOC 2, ISO 27001, GDPR, OFAC
+
+## Docs
+- [Partner Docs](https://docs.platform.palla.app): Postman-published API reference
+- [Products](https://www.palla.com/products): Embed, Checkout, Redirect
+- [Web SDK](https://github.com/PallaFinancial/web-sdk): npm palla-web-sdk (components + hosted flows)
+- [Card encryption](https://github.com/PallaFinancial/card-encrypt): PCI card-data encryption tool
+- [Status](https://status.palla.app): Palla Systems Status Page
+- [Trust Center](https://trust.palla.com): certifications and compliance
+- [Terms](https://palla.app/terms-and-conditions)
+- [Privacy](https://palla.app/privacy-policy)

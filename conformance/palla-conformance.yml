@@ -1,0 +1,31 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/palla-platform-openapi.yml, https://trust.palla.com/, https://www.palla.com/products
+standards:
+  - id: oauth2-client-credentials
+    conforms: true
+    evidence: securityScheme type oauth2 with clientCredentials flow (POST /v1/auth/token)
+  - id: bearer-jwt
+    conforms: true
+    evidence: http bearer securityScheme, bearerFormat JWT
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: errors use a custom meta/error envelope, not application/problem+json
+  - id: pci-dss
+    conforms: true
+    evidence: PCI storage of card/bank data (products page); card data RSA-encrypted client-side; PCI DSS listed on trust.palla.com
+  - id: soc2
+    conforms: true
+    evidence: SOC 2 listed on trust.palla.com
+  - id: iso-27001
+    conforms: true
+    evidence: ISO/IEC 27001 listed on trust.palla.com
+  - id: gdpr
+    conforms: true
+    evidence: GDPR listed on trust.palla.com
+  - id: ofac-screening
+    conforms: true
+    evidence: OFAC screening enforced (451 OFAC hit response); KYC/OFAC/transaction-monitoring on products page
+compliance_program:
+  url: https://trust.palla.com/
+  certifications: [SOC 2, ISO 27001, PCI DSS, GDPR]

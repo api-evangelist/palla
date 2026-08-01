@@ -1,0 +1,29 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/palla-platform-openapi.yml
+summary:
+  types:
+  - http
+  - oauth2
+  oauth2_flows:
+  - clientCredentials
+schemes:
+- name: partnerToken
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: Partner Bearer token obtained from POST /v1/auth/token via a client_credentials
+    exchange. Scoped to a single User via user_id.
+  sources:
+  - openapi/palla-platform-openapi.yml
+- name: clientCredentials
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.platform.palla.app/v1/auth/token
+    scopes: 0
+  description: Partner credential exchange (client_credentials grant). Sent as a JSON body to
+    /v1/auth/token with client_id, client_secret, audience, and user_id; returns a Bearer token
+    in data.token.
+  sources:
+  - openapi/palla-platform-openapi.yml

@@ -1,0 +1,46 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/palla-platform-openapi.yml
+entities:
+  - name: User
+    description: The end user a partner token authorizes (identified by partner user_id).
+    id_field: user_id
+  - name: Account
+    description: Belongs to a User; root of all resources.
+    key: user-scoped
+  - name: PaymentMethod
+    description: Card (or bank) used to send/receive Transfers.
+    id_prefix: pmt_
+  - name: Link
+    description: Unique URL belonging to an Account; shared to form Relationships.
+    id_prefix: lnk_
+  - name: Relationship
+    description: Connection between two Accounts; required to transfer.
+  - name: Transfer
+    description: Record of funds sent to a Relationship.
+    id_prefix: txr_
+relationships:
+  - from: Account
+    to: User
+    type: belongs_to
+    via: user_id
+  - from: Account
+    to: PaymentMethod
+    type: has_many
+  - from: Account
+    to: Link
+    type: has_many
+  - from: Link
+    to: Relationship
+    type: has_one
+    via: link-id
+    note: Resolving another Account's Link creates/returns a Relationship.
+  - from: Account
+    to: Relationship
+    type: has_many
+  - from: Relationship
+    to: Transfer
+    type: has_many
+  - from: Transfer
+    to: Relationship
+    type: belongs_to

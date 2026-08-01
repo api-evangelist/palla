@@ -1,9 +1,29 @@
 aid: palla
 name: Palla
-description: 'Palla is a company surfaced as a portfolio company of cowboy-ventures and added to the API
-  Evangelist network as a stub for enrichment. Sector: fintech. This profile is a lead awaiting the enrichment
-  pipeline.'
+description: >-
+  Palla Financial is a fintech infrastructure company that powers instant
+  cross-border peer-to-peer (P2P) money transfers to 180+ countries. The Palla
+  Platform Partner API lets trusted partners embed transfers into their own
+  apps: exchange partner client credentials for a user-scoped Bearer token, then
+  create and manage a user's Account, encrypted Payment Methods, relationship
+  Links, Relationships, and Transfers, with server-to-server transfer callbacks.
+  Palla also ships embeddable UI (Embed, Checkout, Redirect) and a JavaScript
+  Web SDK, with PCI-scoped card storage plus KYC, OFAC, card verification, fraud
+  prevention, and transaction monitoring built in. Backed by Cowboy Ventures.
 url: https://raw.githubusercontent.com/api-evangelist/palla/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://www.palla.com/page-preview.png
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
@@ -12,16 +32,235 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
 tags:
 - Company
 - Fintech
-apis: []
+- Payments
+- Cross-Border Payments
+- Remittances
+- P2P Payments
+- Money Transfer
+- Embedded Finance
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: palla:palla-accounts-api
+  name: Palla Accounts API
+  description: An Account belongs to a User authorized to use Palla.
+  humanURL: https://docs.platform.palla.app
+  baseURL: https://api.platform.palla.app
+  tags:
+  - Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/palla-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.platform.palla.app
+  - type: Webhooks
+    url: asyncapi/palla-webhooks.yml
+  - type: ErrorCatalog
+    url: errors/palla-problem-types.yml
+  - type: Conventions
+    url: conventions/palla-conventions.yml
+  - type: Idempotency
+    url: conventions/palla-conventions.yml
+  - type: DataModel
+    url: data-model/palla-data-model.yml
+- aid: palla:palla-auth-api
+  name: Palla Auth API
+  description: Authentication endpoints return tokens for user access.
+  humanURL: https://docs.platform.palla.app
+  baseURL: https://api.platform.palla.app
+  tags:
+  - Auth
+  properties:
+  - type: OpenAPI
+    url: openapi/palla-auth-api-openapi.yml
+  - type: Documentation
+    url: https://docs.platform.palla.app
+  - type: Webhooks
+    url: asyncapi/palla-webhooks.yml
+  - type: ErrorCatalog
+    url: errors/palla-problem-types.yml
+  - type: Conventions
+    url: conventions/palla-conventions.yml
+  - type: Idempotency
+    url: conventions/palla-conventions.yml
+  - type: DataModel
+    url: data-model/palla-data-model.yml
+- aid: palla:palla-health-api
+  name: Palla Health API
+  description: Service health.
+  humanURL: https://docs.platform.palla.app
+  baseURL: https://api.platform.palla.app
+  tags:
+  - Health
+  properties:
+  - type: OpenAPI
+    url: openapi/palla-health-api-openapi.yml
+  - type: Documentation
+    url: https://docs.platform.palla.app
+  - type: Webhooks
+    url: asyncapi/palla-webhooks.yml
+  - type: ErrorCatalog
+    url: errors/palla-problem-types.yml
+  - type: Conventions
+    url: conventions/palla-conventions.yml
+  - type: Idempotency
+    url: conventions/palla-conventions.yml
+  - type: DataModel
+    url: data-model/palla-data-model.yml
+- aid: palla:palla-links-api
+  name: Palla Links API
+  description: A Link is a unique URL belonging to an Account, used to create Relationships.
+  humanURL: https://docs.platform.palla.app
+  baseURL: https://api.platform.palla.app
+  tags:
+  - Links
+  properties:
+  - type: OpenAPI
+    url: openapi/palla-links-api-openapi.yml
+  - type: Documentation
+    url: https://docs.platform.palla.app
+  - type: Webhooks
+    url: asyncapi/palla-webhooks.yml
+  - type: ErrorCatalog
+    url: errors/palla-problem-types.yml
+  - type: Conventions
+    url: conventions/palla-conventions.yml
+  - type: Idempotency
+    url: conventions/palla-conventions.yml
+  - type: DataModel
+    url: data-model/palla-data-model.yml
+- aid: palla:palla-payment-methods-api
+  name: Palla Payment Methods API
+  description: Payment Methods are used to send and/or receive Transfers.
+  humanURL: https://docs.platform.palla.app
+  baseURL: https://api.platform.palla.app
+  tags:
+  - Payment Methods
+  properties:
+  - type: OpenAPI
+    url: openapi/palla-payment-methods-api-openapi.yml
+  - type: Documentation
+    url: https://docs.platform.palla.app
+  - type: Webhooks
+    url: asyncapi/palla-webhooks.yml
+  - type: ErrorCatalog
+    url: errors/palla-problem-types.yml
+  - type: Conventions
+    url: conventions/palla-conventions.yml
+  - type: Idempotency
+    url: conventions/palla-conventions.yml
+  - type: DataModel
+    url: data-model/palla-data-model.yml
+- aid: palla:palla-relationships-api
+  name: Palla Relationships API
+  description: A Relationship is the connection between two Accounts.
+  humanURL: https://docs.platform.palla.app
+  baseURL: https://api.platform.palla.app
+  tags:
+  - Relationships
+  properties:
+  - type: OpenAPI
+    url: openapi/palla-relationships-api-openapi.yml
+  - type: Documentation
+    url: https://docs.platform.palla.app
+  - type: Webhooks
+    url: asyncapi/palla-webhooks.yml
+  - type: ErrorCatalog
+    url: errors/palla-problem-types.yml
+  - type: Conventions
+    url: conventions/palla-conventions.yml
+  - type: Idempotency
+    url: conventions/palla-conventions.yml
+  - type: DataModel
+    url: data-model/palla-data-model.yml
+- aid: palla:palla-transfers-api
+  name: Palla Transfers API
+  description: A Transfer is a record of funds sent to a Relationship.
+  humanURL: https://docs.platform.palla.app
+  baseURL: https://api.platform.palla.app
+  tags:
+  - Transfers
+  properties:
+  - type: OpenAPI
+    url: openapi/palla-transfers-api-openapi.yml
+  - type: Documentation
+    url: https://docs.platform.palla.app
+  - type: Webhooks
+    url: asyncapi/palla-webhooks.yml
+  - type: ErrorCatalog
+    url: errors/palla-problem-types.yml
+  - type: Conventions
+    url: conventions/palla-conventions.yml
+  - type: Idempotency
+    url: conventions/palla-conventions.yml
+  - type: DataModel
+    url: data-model/palla-data-model.yml
 common:
 - type: Website
   url: https://www.palla.com
+- type: DeveloperPortal
+  url: https://docs.platform.palla.app
+- type: Documentation
+  url: https://docs.platform.palla.app
+- type: APIReference
+  url: https://documenter.getpostman.com/view/306637/TzkyP11Z
+- type: Postman
+  url: https://documenter.getpostman.com/view/306637/TzkyP11Z
+- type: GitHubOrganization
+  url: https://github.com/PallaFinancial
+- type: StatusPage
+  url: https://status.palla.app
+- type: TermsOfService
+  url: https://palla.app/terms-and-conditions
+- type: PrivacyPolicy
+  url: https://palla.app/privacy-policy
+- type: TrustCenter
+  url: security/palla-trust-center.yml
+- type: Compliance
+  url: https://trust.palla.com/
+- type: SDKs
+  url: packages/palla-packages.yml
+- type: Packages
+  url: packages/palla-packages.yml
+- type: Components
+  url: components/palla-components.yml
+- type: MCPServer
+  url: mcp/palla-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/palla-llms.txt
+- type: Webhooks
+  url: asyncapi/palla-webhooks.yml
+- type: Conventions
+  url: conventions/palla-conventions.yml
+- type: Idempotency
+  url: conventions/palla-conventions.yml
+- type: ErrorCatalog
+  url: errors/palla-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/palla-lifecycle.yml
+- type: Conformance
+  url: conformance/palla-conformance.yml
+- type: DataModel
+  url: data-model/palla-data-model.yml
+- type: WellKnown
+  url: well-known/palla-well-known.yml
+- type: Authentication
+  url: authentication/palla-authentication.yml
+- type: AgenticAccess
+  url: agentic-access/palla-agentic-access.yml
+- type: DomainSecurity
+  url: security/palla-domain-security.yml
+x-enrichment:
+  date: '2026-07-20'
+  status: enriched
+  artifacts_added: 18
+  pass: local-v1

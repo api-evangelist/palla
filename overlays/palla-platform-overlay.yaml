@@ -1,0 +1,24 @@
+overlay: 1.0.0
+x-generated: '2026-07-20'
+x-method: generated
+info:
+  title: API Evangelist enhancements for Palla Platform Partner API
+  version: 1.0.0
+extends: openapi/palla-platform-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-enriched: true
+      x-api-source: https://documenter.getpostman.com/view/306637/TzkyP11Z
+      x-provider-type: cross-border-p2p-payments
+  - target: $.info
+    update:
+      x-idempotency:
+        supported: true
+        style: natural-key
+        note: Create Account is idempotent on the user-scoped token.
+  - target: $.info
+    update:
+      x-webhooks: asyncapi/palla-webhooks.yml
+      x-error-catalog: errors/palla-problem-types.yml
+      x-conventions: conventions/palla-conventions.yml

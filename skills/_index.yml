@@ -1,0 +1,11 @@
+generated: '2026-07-20'
+method: generated
+skills:
+  - file: palla-onboard-and-add-card.md
+    name: Onboard a Palla user and add a card
+    api: openapi/palla-platform-openapi.yml
+    operations: [partnerCredentialExchange, createAccount, createPaymentMethod]
+  - file: palla-connect-and-track-transfers.md
+    name: Connect two Palla accounts and track transfers
+    api: openapi/palla-platform-openapi.yml
+    operations: [generateRelationshipLink, listRelationships, listTransfers]

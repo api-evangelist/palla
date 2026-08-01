@@ -1,0 +1,547 @@
+openapi: 3.0.3
+x-generated: '2026-07-20'
+x-method: derived
+x-source: https://documenter.getpostman.com/view/306637/TzkyP11Z (Palla Platform Partner Docs, Postman collection 306637-8e63aa5e-0996-47f9-b589-997c3e9c81bd)
+info:
+  title: Palla Platform Partner API
+  version: '1.0'
+  description: >-
+    The Palla Platform API enables trusted Partners to embed cross-border
+    peer-to-peer (P2P) money transfers into their own applications. Partners
+    exchange client credentials for a scoped Bearer token that authorizes a
+    specific end User, then manage that User's Account, Payment Methods, Links,
+    Relationships, and Transfers. Responses use a consistent envelope with a
+    `meta` block (code, path, requestId, result) plus either a `data` payload on
+    success or an `error` object (message, rc, description) on failure. Derived
+    from the public Palla Platform Partner Docs Postman collection; not an
+    official Palla-published OpenAPI document.
+  contact:
+    name: Palla Financial
+    url: https://www.palla.com
+  termsOfService: https://palla.app/terms-and-conditions
+servers:
+  - url: https://api.platform.palla.app
+    description: Production
+tags:
+  - name: Auth
+    description: Authentication endpoints return tokens for user access.
+  - name: Accounts
+    description: An Account belongs to a User authorized to use Palla.
+  - name: Payment Methods
+    description: Payment Methods are used to send and/or receive Transfers.
+  - name: Links
+    description: A Link is a unique URL belonging to an Account, used to create Relationships.
+  - name: Relationships
+    description: A Relationship is the connection between two Accounts.
+  - name: Transfers
+    description: A Transfer is a record of funds sent to a Relationship.
+  - name: Health
+    description: Service health.
+components:
+  securitySchemes:
+    partnerToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >-
+        Partner Bearer token obtained from POST /v1/auth/token via a
+        client_credentials exchange. Scoped to a single User via user_id.
+    clientCredentials:
+      type: oauth2
+      description: >-
+        Partner credential exchange (client_credentials grant). Sent as a JSON
+        body to /v1/auth/token with client_id, client_secret, audience, and
+        user_id; returns a Bearer token in data.token.
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.platform.palla.app/v1/auth/token
+          scopes: {}
+  parameters:
+    RequestId:
+      name: x-palla-request-id
+      in: header
+      required: false
+      description: Partner-supplied request id echoed back in meta.requestId for tracing.
+      schema:
+        type: string
+        example: my-request-id
+  schemas:
+    Meta:
+      type: object
+      properties:
+        code: { type: integer, example: 200 }
+        path: { type: string, example: /v1/accounts }
+        requestId: { type: string, example: my-request-id }
+        result: { type: string, enum: [success, failure], example: success }
+        requestCountry: { type: string, example: US }
+        itemCount: { type: integer }
+        itemLimit: { type: integer }
+        itemOffset: { type: integer }
+        itemTotal: { type: integer }
+    Error:
+      type: object
+      description: Error object returned on failure responses.
+      properties:
+        message: { type: string, example: payment_methods }
+        rc: { type: integer, description: Palla numeric result code, example: 22 }
+        description: { type: string, example: resource/missing }
+        resource: { type: string }
+    ErrorEnvelope:
+      type: object
+      properties:
+        meta: { $ref: '#/components/schemas/Meta' }
+        error: { $ref: '#/components/schemas/Error' }
+    TokenRequest:
+      type: object
+      required: [client_id, client_secret, audience, grant_type, user_id]
+      properties:
+        client_id: { type: string, description: The client id issued to the partner. }
+        client_secret: { type: string, description: The client secret issued to the partner. }
+        audience:
+          type: array
+          items: { type: string }
+          example: ["https://api.platform.palla.app/"]
+        grant_type: { type: string, example: client_credentials }
+        user_id: { type: string, description: The partner's id for the end User the token authorizes., example: abc12345 }
+        mfa_code: { type: string, description: MFA code, when MFA is required. }
+    TokenResponse:
+      type: object
+      properties:
+        meta: { $ref: '#/components/schemas/Meta' }
+        data:
+          type: object
+          properties:
+            token: { type: string, description: Bearer JWT for subsequent API calls. }
+    LegalName:
+      type: object
+      required: [first, last]
+      properties:
+        first: { type: string, example: Juan }
+        middle: { type: string, example: Luis }
+        last: { type: string, example: Perez }
+    DateOfBirth:
+      type: object
+      properties:
+        day: { type: integer, example: 30 }
+        month: { type: integer, example: 5 }
+        year: { type: integer, example: 1979 }
+    CreateAccountRequest:
+      type: object
+      required: [legalName]
+      properties:
+        legalName: { $ref: '#/components/schemas/LegalName' }
+        dob: { $ref: '#/components/schemas/DateOfBirth' }
+        displayName: { type: string, example: Juan Perez }
+    Account:
+      type: object
+      properties:
+        created: { type: integer, format: int64 }
+        type: { type: string, example: personal }
+        status: { type: string, example: active }
+        displayName: { type: string }
+        legalName: { $ref: '#/components/schemas/LegalName' }
+    CreatePaymentMethodRequest:
+      type: object
+      required: [type, primary, card]
+      properties:
+        type: { type: string, enum: [card], example: card }
+        primary: { type: boolean, example: true }
+        card:
+          type: object
+          properties:
+            keyId: { type: string, description: Public key id used to encrypt the card data. }
+            data: { type: string, description: RSA-encrypted card data (see PallaFinancial/card-encrypt). }
+    PaymentMethod:
+      type: object
+      properties:
+        paymentMethodId: { type: string, example: pmt_01J0Y5P8TQ950YKY7HZXRAH81A }
+        type: { type: string, example: card }
+        primary: { type: boolean }
+        country: { type: string, example: US }
+        brand: { type: string, example: visa }
+        last4: { type: string, example: '0004' }
+    UpdatePaymentMethodRequest:
+      type: object
+      required: [paymentMethodId]
+      properties:
+        paymentMethodId: { type: string, example: pmt_01FW482PM57E4HT2JK2HGDBR4B }
+        primary: { type: boolean }
+        configuration: { type: object }
+    DeletePaymentMethodRequest:
+      type: object
+      required: [paymentMethodId]
+      properties:
+        paymentMethodId: { type: string, example: pmt_01FEVEE4BJ9NT7QS08ZJ9RAVZC }
+    DeleteLinkRequest:
+      type: object
+      required: [linkId]
+      properties:
+        linkId: { type: string, example: lnk_CQ2N3GzF }
+    Link:
+      type: object
+      properties:
+        linkId: { type: string, example: lnk_Cx3xqci5 }
+        url: { type: string }
+    Relationship:
+      type: object
+      properties:
+        relationshipId: { type: string }
+    Transfer:
+      type: object
+      properties:
+        transferId: { type: string, example: txr_01GR2DZ7PRTZDAN5X3GFR2936F }
+        role: { type: string, enum: [sender, receiver] }
+        total: { type: integer }
+        amount: { type: integer }
+        currency: { type: string, example: USD }
+        status: { type: string, example: completed }
+        created: { type: integer, format: int64 }
+  responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorEnvelope' }
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorEnvelope' }
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorEnvelope' }
+    Conflict:
+      description: Conflict
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorEnvelope' }
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorEnvelope' }
+security:
+  - partnerToken: []
+paths:
+  /v1/auth/token:
+    post:
+      operationId: partnerCredentialExchange
+      tags: [Auth]
+      summary: Partner Credential Exchange
+      description: >-
+        Perform a credentials exchange for a Bearer token. The token authorizes
+        the partner for a specific User with the provided user_id. Call only
+        from the partner's backend; the returned token is safe to hand to a web
+        or native app for subsequent API calls.
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/RequestId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/TokenRequest' }
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TokenResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+  /v1/accounts:
+    post:
+      operationId: createAccount
+      tags: [Accounts]
+      summary: Create Account
+      description: >-
+        Create an Account for the authorized User. This endpoint is idempotent:
+        if the account exists, the provided values are used to update it.
+      parameters:
+        - $ref: '#/components/parameters/RequestId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CreateAccountRequest' }
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta: { $ref: '#/components/schemas/Meta' }
+                  data: { $ref: '#/components/schemas/Account' }
+    get:
+      operationId: fetchAccountDetails
+      tags: [Accounts]
+      summary: Fetch Account Details
+      description: Get the profile data of an Account, including any associated Identity.
+      parameters:
+        - $ref: '#/components/parameters/RequestId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta: { $ref: '#/components/schemas/Meta' }
+                  data: { $ref: '#/components/schemas/Account' }
+  /v1/payment-methods:
+    post:
+      operationId: createPaymentMethod
+      tags: [Payment Methods]
+      summary: Create Payment Method
+      description: >-
+        Create a Payment Method belonging to the Account. Card data must be
+        RSA-encrypted client-side; see PallaFinancial/card-encrypt.
+      parameters:
+        - $ref: '#/components/parameters/RequestId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CreatePaymentMethodRequest' }
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta: { $ref: '#/components/schemas/Meta' }
+                  data: { $ref: '#/components/schemas/PaymentMethod' }
+        '409':
+          description: Conflict (card exists / missing identity name)
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ErrorEnvelope' }
+        '412':
+          description: Precondition Failed (BIN restriction)
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ErrorEnvelope' }
+        '451':
+          description: Unavailable For Legal Reasons (OFAC hit)
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ErrorEnvelope' }
+    get:
+      operationId: listPaymentMethods
+      tags: [Payment Methods]
+      summary: List Payment Methods
+      description: List all Payment Methods belonging to the Account.
+      parameters:
+        - $ref: '#/components/parameters/RequestId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta: { $ref: '#/components/schemas/Meta' }
+                  data:
+                    type: object
+                    properties:
+                      items:
+                        type: array
+                        items: { $ref: '#/components/schemas/PaymentMethod' }
+    put:
+      operationId: updatePaymentMethod
+      tags: [Payment Methods]
+      summary: Update Payment Method
+      description: Update a Payment Method belonging to the Account.
+      parameters:
+        - $ref: '#/components/parameters/RequestId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/UpdatePaymentMethodRequest' }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta: { $ref: '#/components/schemas/Meta' }
+                  data: { $ref: '#/components/schemas/PaymentMethod' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    delete:
+      operationId: deletePaymentMethod
+      tags: [Payment Methods]
+      summary: Delete Payment Method
+      description: Delete a Payment Method by id belonging to the Account.
+      parameters:
+        - $ref: '#/components/parameters/RequestId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/DeletePaymentMethodRequest' }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta: { $ref: '#/components/schemas/Meta' }
+  /v1/links:
+    post:
+      operationId: generateRelationshipLink
+      tags: [Links]
+      summary: Generate Relationship Link
+      description: Create a unique Link on behalf of the Account.
+      parameters:
+        - $ref: '#/components/parameters/RequestId'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta: { $ref: '#/components/schemas/Meta' }
+                  data: { $ref: '#/components/schemas/Link' }
+        '409':
+          description: Conflict (too many links)
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ErrorEnvelope' }
+    get:
+      operationId: listLinks
+      tags: [Links]
+      summary: List Links
+      description: List the Links that have been created for the Account.
+      parameters:
+        - $ref: '#/components/parameters/RequestId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta: { $ref: '#/components/schemas/Meta' }
+                  data:
+                    type: object
+                    properties:
+                      items:
+                        type: array
+                        items: { $ref: '#/components/schemas/Link' }
+    delete:
+      operationId: deleteLink
+      tags: [Links]
+      summary: Delete Links
+      description: Delete a Link by its id.
+      parameters:
+        - $ref: '#/components/parameters/RequestId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/DeleteLinkRequest' }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta: { $ref: '#/components/schemas/Meta' }
+  /v1/relationships:
+    get:
+      operationId: listRelationships
+      tags: [Relationships]
+      summary: List Relationships
+      description: >-
+        List all Relationships belonging to the Account, or resolve a
+        Relationship from another Account's Link via the link-id query
+        parameter (creating one if none exists).
+      parameters:
+        - $ref: '#/components/parameters/RequestId'
+        - name: link-id
+          in: query
+          required: false
+          description: Resolve/create a Relationship from another Account's Link id.
+          schema: { type: string, example: lnk_Cx3xqci5 }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta: { $ref: '#/components/schemas/Meta' }
+                  data:
+                    type: object
+                    properties:
+                      items:
+                        type: array
+                        items: { $ref: '#/components/schemas/Relationship' }
+        '422':
+          description: Unprocessable Entity (same account)
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ErrorEnvelope' }
+  /v1/transfers:
+    get:
+      operationId: listTransfers
+      tags: [Transfers]
+      summary: List Transfers
+      description: Retrieve a list of all Transfers sent or received by the Account.
+      parameters:
+        - $ref: '#/components/parameters/RequestId'
+        - name: limit
+          in: query
+          required: false
+          description: Page size.
+          schema: { type: integer, example: 10 }
+        - name: offset
+          in: query
+          required: false
+          description: Page offset.
+          schema: { type: integer }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta: { $ref: '#/components/schemas/Meta' }
+                  data:
+                    type: object
+                    properties:
+                      items:
+                        type: array
+                        items: { $ref: '#/components/schemas/Transfer' }
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [Health]
+      summary: Health Check
+      description: The healthcheck endpoint for the API proxy.
+      security: []
+      responses:
+        '200':
+          description: OK

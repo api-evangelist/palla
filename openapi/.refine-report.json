@@ -1,0 +1,26 @@
+{
+  "provider": "palla",
+  "sources": [
+    "palla-accounts-api-openapi.yml",
+    "palla-auth-api-openapi.yml",
+    "palla-health-api-openapi.yml",
+    "palla-links-api-openapi.yml",
+    "palla-payment-methods-api-openapi.yml",
+    "palla-relationships-api-openapi.yml",
+    "palla-transfers-api-openapi.yml"
+  ],
+  "outputs": [
+    "palla-accounts-api-openapi.yml",
+    "palla-auth-api-openapi.yml",
+    "palla-health-api-openapi.yml",
+    "palla-links-api-openapi.yml",
+    "palla-payment-methods-api-openapi.yml",
+    "palla-relationships-api-openapi.yml",
+    "palla-transfers-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
