@@ -203,6 +203,8 @@ apis:
   - type: DataModel
     url: data-model/palla-data-model.yml
 common:
+- type: Overlay
+  url: overlays/palla-platform-overlay.yaml
 - type: Website
   url: https://www.palla.com
 - type: DeveloperPortal
