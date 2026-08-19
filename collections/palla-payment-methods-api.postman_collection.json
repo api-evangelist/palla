@@ -1,0 +1,703 @@
+{
+  "item": [
+    {
+      "id": "4ff74d1b-8825-418c-8761-b65f3c5b0fe4",
+      "name": "Payment Methods",
+      "description": {
+        "content": "Payment Methods are used to send and/or receive Transfers.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2d1db8e7-0658-44cb-b668-1fbff924f3fb",
+          "name": "Create Payment Method",
+          "request": {
+            "name": "Create Payment Method",
+            "description": {
+              "content": "Create a Payment Method belonging to the Account. Card data must be RSA-encrypted client-side; see PallaFinancial/card-encrypt.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "payment-methods"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Partner-supplied request id echoed back in meta.requestId for tracing.",
+                "key": "x-palla-request-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"primary\": \"<boolean>\",\n  \"card\": {\n    \"keyId\": \"<string>\",\n    \"data\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d759ca00-fc6e-4df5-ba87-cea3fb62c806",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "payment-methods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Partner-supplied request id echoed back in meta.requestId for tracing.",
+                    "key": "x-palla-request-id",
+                    "value": "my-request-id"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"card\",\n  \"primary\": true,\n  \"card\": {\n    \"keyId\": \"<string>\",\n    \"data\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"code\": 200,\n    \"path\": \"/v1/accounts\",\n    \"requestId\": \"my-request-id\",\n    \"result\": \"success\",\n    \"requestCountry\": \"US\",\n    \"itemCount\": 3532,\n    \"itemLimit\": 141,\n    \"itemOffset\": 8598,\n    \"itemTotal\": 1551\n  },\n  \"data\": {\n    \"paymentMethodId\": \"pmt_01J0Y5P8TQ950YKY7HZXRAH81A\",\n    \"type\": \"card\",\n    \"primary\": true,\n    \"country\": \"US\",\n    \"brand\": \"visa\",\n    \"last4\": \"0004\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ee49fde-c181-4c05-9ab5-8eea86a8647f",
+              "name": "Conflict (card exists / missing identity name)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "payment-methods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Partner-supplied request id echoed back in meta.requestId for tracing.",
+                    "key": "x-palla-request-id",
+                    "value": "my-request-id"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"card\",\n  \"primary\": true,\n  \"card\": {\n    \"keyId\": \"<string>\",\n    \"data\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"code\": 200,\n    \"path\": \"/v1/accounts\",\n    \"requestId\": \"my-request-id\",\n    \"result\": \"success\",\n    \"requestCountry\": \"US\",\n    \"itemCount\": 580,\n    \"itemLimit\": 4687,\n    \"itemOffset\": 6870,\n    \"itemTotal\": 3090\n  },\n  \"error\": {\n    \"message\": \"payment_methods\",\n    \"rc\": 22,\n    \"description\": \"resource/missing\",\n    \"resource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc4bd423-3480-4fdc-93de-115dc9b6f494",
+              "name": "Precondition Failed (BIN restriction)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "payment-methods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Partner-supplied request id echoed back in meta.requestId for tracing.",
+                    "key": "x-palla-request-id",
+                    "value": "my-request-id"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"card\",\n  \"primary\": true,\n  \"card\": {\n    \"keyId\": \"<string>\",\n    \"data\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Precondition Failed",
+              "code": 412,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"code\": 200,\n    \"path\": \"/v1/accounts\",\n    \"requestId\": \"my-request-id\",\n    \"result\": \"success\",\n    \"requestCountry\": \"US\",\n    \"itemCount\": 580,\n    \"itemLimit\": 4687,\n    \"itemOffset\": 6870,\n    \"itemTotal\": 3090\n  },\n  \"error\": {\n    \"message\": \"payment_methods\",\n    \"rc\": 22,\n    \"description\": \"resource/missing\",\n    \"resource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "41088187-38bb-461a-9c3c-0370ffa4538f",
+              "name": "Unavailable For Legal Reasons (OFAC hit)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "payment-methods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Partner-supplied request id echoed back in meta.requestId for tracing.",
+                    "key": "x-palla-request-id",
+                    "value": "my-request-id"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"card\",\n  \"primary\": true,\n  \"card\": {\n    \"keyId\": \"<string>\",\n    \"data\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "code": 451,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"code\": 200,\n    \"path\": \"/v1/accounts\",\n    \"requestId\": \"my-request-id\",\n    \"result\": \"success\",\n    \"requestCountry\": \"US\",\n    \"itemCount\": 580,\n    \"itemLimit\": 4687,\n    \"itemOffset\": 6870,\n    \"itemTotal\": 3090\n  },\n  \"error\": {\n    \"message\": \"payment_methods\",\n    \"rc\": 22,\n    \"description\": \"resource/missing\",\n    \"resource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f7dd6565-dd6a-485d-8980-d828005c83de",
+          "name": "List Payment Methods",
+          "request": {
+            "name": "List Payment Methods",
+            "description": {
+              "content": "List all Payment Methods belonging to the Account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "payment-methods"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Partner-supplied request id echoed back in meta.requestId for tracing.",
+                "key": "x-palla-request-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a1b02320-8b5b-4ea9-9760-64f3622d3c5e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "payment-methods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Partner-supplied request id echoed back in meta.requestId for tracing.",
+                    "key": "x-palla-request-id",
+                    "value": "my-request-id"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"code\": 200,\n    \"path\": \"/v1/accounts\",\n    \"requestId\": \"my-request-id\",\n    \"result\": \"success\",\n    \"requestCountry\": \"US\",\n    \"itemCount\": 3729,\n    \"itemLimit\": 5938,\n    \"itemOffset\": 5087,\n    \"itemTotal\": 4503\n  },\n  \"data\": {\n    \"items\": [\n      {\n        \"paymentMethodId\": \"pmt_01J0Y5P8TQ950YKY7HZXRAH81A\",\n        \"type\": \"card\",\n        \"primary\": true,\n        \"country\": \"US\",\n        \"brand\": \"visa\",\n        \"last4\": \"0004\"\n      },\n      {\n        \"paymentMethodId\": \"pmt_01J0Y5P8TQ950YKY7HZXRAH81A\",\n        \"type\": \"card\",\n        \"primary\": true,\n        \"country\": \"US\",\n        \"brand\": \"visa\",\n        \"last4\": \"0004\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "94b643f1-72da-4a96-84c1-0ded2526093a",
+          "name": "Update Payment Method",
+          "request": {
+            "name": "Update Payment Method",
+            "description": {
+              "content": "Update a Payment Method belonging to the Account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "payment-methods"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Partner-supplied request id echoed back in meta.requestId for tracing.",
+                "key": "x-palla-request-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paymentMethodId\": \"<string>\",\n  \"primary\": \"<boolean>\",\n  \"configuration\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8b0366e3-fd7a-4593-9d83-9eacc1d81f97",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "payment-methods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Partner-supplied request id echoed back in meta.requestId for tracing.",
+                    "key": "x-palla-request-id",
+                    "value": "my-request-id"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentMethodId\": \"pmt_01FW482PM57E4HT2JK2HGDBR4B\",\n  \"primary\": \"<boolean>\",\n  \"configuration\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"code\": 200,\n    \"path\": \"/v1/accounts\",\n    \"requestId\": \"my-request-id\",\n    \"result\": \"success\",\n    \"requestCountry\": \"US\",\n    \"itemCount\": 3532,\n    \"itemLimit\": 141,\n    \"itemOffset\": 8598,\n    \"itemTotal\": 1551\n  },\n  \"data\": {\n    \"paymentMethodId\": \"pmt_01J0Y5P8TQ950YKY7HZXRAH81A\",\n    \"type\": \"card\",\n    \"primary\": true,\n    \"country\": \"US\",\n    \"brand\": \"visa\",\n    \"last4\": \"0004\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3f4f117a-59ee-41c2-8416-da5b81c7f5ee",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "payment-methods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Partner-supplied request id echoed back in meta.requestId for tracing.",
+                    "key": "x-palla-request-id",
+                    "value": "my-request-id"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentMethodId\": \"pmt_01FW482PM57E4HT2JK2HGDBR4B\",\n  \"primary\": \"<boolean>\",\n  \"configuration\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"code\": 200,\n    \"path\": \"/v1/accounts\",\n    \"requestId\": \"my-request-id\",\n    \"result\": \"success\",\n    \"requestCountry\": \"US\",\n    \"itemCount\": 580,\n    \"itemLimit\": 4687,\n    \"itemOffset\": 6870,\n    \"itemTotal\": 3090\n  },\n  \"error\": {\n    \"message\": \"payment_methods\",\n    \"rc\": 22,\n    \"description\": \"resource/missing\",\n    \"resource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6658411f-1c5d-4632-b94a-fb788a64eca4",
+          "name": "Delete Payment Method",
+          "request": {
+            "name": "Delete Payment Method",
+            "description": {
+              "content": "Delete a Payment Method by id belonging to the Account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "payment-methods"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Partner-supplied request id echoed back in meta.requestId for tracing.",
+                "key": "x-palla-request-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paymentMethodId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3ab3b093-046d-43b7-978b-b5d841505a43",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "payment-methods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Partner-supplied request id echoed back in meta.requestId for tracing.",
+                    "key": "x-palla-request-id",
+                    "value": "my-request-id"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentMethodId\": \"pmt_01FEVEE4BJ9NT7QS08ZJ9RAVZC\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"code\": 200,\n    \"path\": \"/v1/accounts\",\n    \"requestId\": \"my-request-id\",\n    \"result\": \"success\",\n    \"requestCountry\": \"US\",\n    \"itemCount\": 4108,\n    \"itemLimit\": 5430,\n    \"itemOffset\": 5544,\n    \"itemTotal\": 8608\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.platform.palla.app",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "96322839-c07d-4b05-a2d8-15832d70866f",
+    "name": "Palla Platform Partner Accounts Payment Methods API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Palla Platform API enables trusted Partners to embed cross-border peer-to-peer (P2P) money transfers into their own applications. Partners exchange client credentials for a scoped Bearer token that authorizes a specific end User, then manage that User's Account, Payment Methods, Links, Relationships, and Transfers. Responses use a consistent envelope with a `meta` block (code, path, requestId, result) plus either a `data` payload on success or an `error` object (message, rc, description) on failure. Derived from the public Palla Platform Partner Docs Postman collection; not an official Palla-published OpenAPI document.\n\nContact Support:\n Name: Palla Financial",
+      "type": "text/plain"
+    }
+  }
+}

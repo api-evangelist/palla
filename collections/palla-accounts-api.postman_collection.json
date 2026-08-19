@@ -1,0 +1,246 @@
+{
+  "item": [
+    {
+      "id": "6dc1def1-a0cc-4d53-849c-ac9f6f97485c",
+      "name": "Accounts",
+      "description": {
+        "content": "An Account belongs to a User authorized to use Palla.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "32ba3b44-530c-452a-b2ff-5b6a5fb19b7d",
+          "name": "Create Account",
+          "request": {
+            "name": "Create Account",
+            "description": {
+              "content": "Create an Account for the authorized User. This endpoint is idempotent: if the account exists, the provided values are used to update it.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Partner-supplied request id echoed back in meta.requestId for tracing.",
+                "key": "x-palla-request-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"legalName\": {\n    \"first\": \"<string>\",\n    \"last\": \"<string>\",\n    \"middle\": \"<string>\"\n  },\n  \"dob\": {\n    \"day\": \"<integer>\",\n    \"month\": \"<integer>\",\n    \"year\": \"<integer>\"\n  },\n  \"displayName\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "db3c9746-edf4-48f0-a46f-0deec26ddc49",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Partner-supplied request id echoed back in meta.requestId for tracing.",
+                    "key": "x-palla-request-id",
+                    "value": "my-request-id"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"legalName\": {\n    \"first\": \"Juan\",\n    \"last\": \"Perez\",\n    \"middle\": \"Luis\"\n  },\n  \"dob\": {\n    \"day\": 30,\n    \"month\": 5,\n    \"year\": 1979\n  },\n  \"displayName\": \"Juan Perez\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"code\": 200,\n    \"path\": \"/v1/accounts\",\n    \"requestId\": \"my-request-id\",\n    \"result\": \"success\",\n    \"requestCountry\": \"US\",\n    \"itemCount\": 9235,\n    \"itemLimit\": 7374,\n    \"itemOffset\": 3330,\n    \"itemTotal\": 8942\n  },\n  \"data\": {\n    \"created\": 7599,\n    \"type\": \"personal\",\n    \"status\": \"active\",\n    \"displayName\": \"string\",\n    \"legalName\": {\n      \"first\": \"Juan\",\n      \"last\": \"Perez\",\n      \"middle\": \"Luis\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0caff2ab-65b6-46fa-a11c-1abebd1bfe46",
+          "name": "Fetch Account Details",
+          "request": {
+            "name": "Fetch Account Details",
+            "description": {
+              "content": "Get the profile data of an Account, including any associated Identity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Partner-supplied request id echoed back in meta.requestId for tracing.",
+                "key": "x-palla-request-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "09c339ad-a0c5-4f1f-8055-aef5812964db",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Partner-supplied request id echoed back in meta.requestId for tracing.",
+                    "key": "x-palla-request-id",
+                    "value": "my-request-id"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"code\": 200,\n    \"path\": \"/v1/accounts\",\n    \"requestId\": \"my-request-id\",\n    \"result\": \"success\",\n    \"requestCountry\": \"US\",\n    \"itemCount\": 9235,\n    \"itemLimit\": 7374,\n    \"itemOffset\": 3330,\n    \"itemTotal\": 8942\n  },\n  \"data\": {\n    \"created\": 7599,\n    \"type\": \"personal\",\n    \"status\": \"active\",\n    \"displayName\": \"string\",\n    \"legalName\": {\n      \"first\": \"Juan\",\n      \"last\": \"Perez\",\n      \"middle\": \"Luis\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.platform.palla.app",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e10301ae-044b-43eb-83a1-32ce665243c1",
+    "name": "Palla Platform Partner Accounts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Palla Platform API enables trusted Partners to embed cross-border peer-to-peer (P2P) money transfers into their own applications. Partners exchange client credentials for a scoped Bearer token that authorizes a specific end User, then manage that User's Account, Payment Methods, Links, Relationships, and Transfers. Responses use a consistent envelope with a `meta` block (code, path, requestId, result) plus either a `data` payload on success or an `error` object (message, rc, description) on failure. Derived from the public Palla Platform Partner Docs Postman collection; not an official Palla-published OpenAPI document.\n\nContact Support:\n Name: Palla Financial",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Palla Platform Partner Accounts Relationships API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Relationships",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Relationships",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.platform.palla.app/v1/relationships",
+            "headers": [
+              {
+                "name": "x-palla-request-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "link-id",
+                "value": "",
+                "type": "query",
+                "description": "Resolve/create a Relationship from another Account's Link id."
+              }
+            ]
+          },
+          "docs": "List all Relationships belonging to the Account, or resolve a Relationship from another Account's Link via the link-id query parameter (creating one if none exists)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

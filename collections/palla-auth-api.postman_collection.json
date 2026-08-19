@@ -1,0 +1,333 @@
+{
+  "item": [
+    {
+      "id": "d388c58c-eb7f-425b-8048-be4530a83012",
+      "name": "Auth",
+      "description": {
+        "content": "Authentication endpoints return tokens for user access.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "98b16f4f-3c51-4843-b109-db9420a3b562",
+          "name": "Partner Credential Exchange",
+          "request": {
+            "name": "Partner Credential Exchange",
+            "description": {
+              "content": "Perform a credentials exchange for a Bearer token. The token authorizes the partner for a specific User with the provided user_id. Call only from the partner's backend; the returned token is safe to hand to a web or native app for subsequent API calls.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "auth",
+                "token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Partner-supplied request id echoed back in meta.requestId for tracing.",
+                "key": "x-palla-request-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"audience\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"grant_type\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"mfa_code\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "70e3b641-384b-4923-8077-1cbff08de2f4",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "auth",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Partner-supplied request id echoed back in meta.requestId for tracing.",
+                    "key": "x-palla-request-id",
+                    "value": "my-request-id"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"audience\": [\n    \"https://api.platform.palla.app/\"\n  ],\n  \"grant_type\": \"client_credentials\",\n  \"user_id\": \"abc12345\",\n  \"mfa_code\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"code\": 200,\n    \"path\": \"/v1/accounts\",\n    \"requestId\": \"my-request-id\",\n    \"result\": \"success\",\n    \"requestCountry\": \"US\",\n    \"itemCount\": 7503,\n    \"itemLimit\": 7831,\n    \"itemOffset\": 5320,\n    \"itemTotal\": 6892\n  },\n  \"data\": {\n    \"token\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "860e3324-c177-42d0-b654-5c740558ab62",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "auth",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Partner-supplied request id echoed back in meta.requestId for tracing.",
+                    "key": "x-palla-request-id",
+                    "value": "my-request-id"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"audience\": [\n    \"https://api.platform.palla.app/\"\n  ],\n  \"grant_type\": \"client_credentials\",\n  \"user_id\": \"abc12345\",\n  \"mfa_code\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"code\": 200,\n    \"path\": \"/v1/accounts\",\n    \"requestId\": \"my-request-id\",\n    \"result\": \"success\",\n    \"requestCountry\": \"US\",\n    \"itemCount\": 4704,\n    \"itemLimit\": 4383,\n    \"itemOffset\": 4108,\n    \"itemTotal\": 8870\n  },\n  \"error\": {\n    \"message\": \"payment_methods\",\n    \"rc\": 22,\n    \"description\": \"resource/missing\",\n    \"resource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a745835f-2fdb-4157-8f05-96a9fdf11f33",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "auth",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Partner-supplied request id echoed back in meta.requestId for tracing.",
+                    "key": "x-palla-request-id",
+                    "value": "my-request-id"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"audience\": [\n    \"https://api.platform.palla.app/\"\n  ],\n  \"grant_type\": \"client_credentials\",\n  \"user_id\": \"abc12345\",\n  \"mfa_code\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"code\": 200,\n    \"path\": \"/v1/accounts\",\n    \"requestId\": \"my-request-id\",\n    \"result\": \"success\",\n    \"requestCountry\": \"US\",\n    \"itemCount\": 4704,\n    \"itemLimit\": 4383,\n    \"itemOffset\": 4108,\n    \"itemTotal\": 8870\n  },\n  \"error\": {\n    \"message\": \"payment_methods\",\n    \"rc\": 22,\n    \"description\": \"resource/missing\",\n    \"resource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9d8c9753-ebc9-4275-835b-142d1d792cdf",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "auth",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Partner-supplied request id echoed back in meta.requestId for tracing.",
+                    "key": "x-palla-request-id",
+                    "value": "my-request-id"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"audience\": [\n    \"https://api.platform.palla.app/\"\n  ],\n  \"grant_type\": \"client_credentials\",\n  \"user_id\": \"abc12345\",\n  \"mfa_code\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"code\": 200,\n    \"path\": \"/v1/accounts\",\n    \"requestId\": \"my-request-id\",\n    \"result\": \"success\",\n    \"requestCountry\": \"US\",\n    \"itemCount\": 4704,\n    \"itemLimit\": 4383,\n    \"itemOffset\": 4108,\n    \"itemTotal\": 8870\n  },\n  \"error\": {\n    \"message\": \"payment_methods\",\n    \"rc\": 22,\n    \"description\": \"resource/missing\",\n    \"resource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.platform.palla.app",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e781ef27-8ec5-4fc0-bb99-2415ee7b44fa",
+    "name": "Palla Platform Partner Accounts Auth API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Palla Platform API enables trusted Partners to embed cross-border peer-to-peer (P2P) money transfers into their own applications. Partners exchange client credentials for a scoped Bearer token that authorizes a specific end User, then manage that User's Account, Payment Methods, Links, Relationships, and Transfers. Responses use a consistent envelope with a `meta` block (code, path, requestId, result) plus either a `data` payload on success or an `error` object (message, rc, description) on failure. Derived from the public Palla Platform Partner Docs Postman collection; not an official Palla-published OpenAPI document.\n\nContact Support:\n Name: Palla Financial",
+      "type": "text/plain"
+    }
+  }
+}

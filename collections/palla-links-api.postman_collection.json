@@ -1,0 +1,388 @@
+{
+  "item": [
+    {
+      "id": "7beba297-1e15-4b3e-ab59-25a47edd2429",
+      "name": "Links",
+      "description": {
+        "content": "A Link is a unique URL belonging to an Account, used to create Relationships.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "98b57b13-8d42-4815-b3e4-877c5e12a5b4",
+          "name": "Generate Relationship Link",
+          "request": {
+            "name": "Generate Relationship Link",
+            "description": {
+              "content": "Create a unique Link on behalf of the Account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "links"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Partner-supplied request id echoed back in meta.requestId for tracing.",
+                "key": "x-palla-request-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ee0c4106-2f13-4dba-aa66-af6e7d96d7a8",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "links"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Partner-supplied request id echoed back in meta.requestId for tracing.",
+                    "key": "x-palla-request-id",
+                    "value": "my-request-id"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"code\": 200,\n    \"path\": \"/v1/accounts\",\n    \"requestId\": \"my-request-id\",\n    \"result\": \"success\",\n    \"requestCountry\": \"US\",\n    \"itemCount\": 7034,\n    \"itemLimit\": 1710,\n    \"itemOffset\": 6519,\n    \"itemTotal\": 3492\n  },\n  \"data\": {\n    \"linkId\": \"lnk_Cx3xqci5\",\n    \"url\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9db7067f-e37d-46d4-9b51-de38e8674a33",
+              "name": "Conflict (too many links)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "links"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Partner-supplied request id echoed back in meta.requestId for tracing.",
+                    "key": "x-palla-request-id",
+                    "value": "my-request-id"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"code\": 200,\n    \"path\": \"/v1/accounts\",\n    \"requestId\": \"my-request-id\",\n    \"result\": \"success\",\n    \"requestCountry\": \"US\",\n    \"itemCount\": 7398,\n    \"itemLimit\": 1575,\n    \"itemOffset\": 6650,\n    \"itemTotal\": 7120\n  },\n  \"error\": {\n    \"message\": \"payment_methods\",\n    \"rc\": 22,\n    \"description\": \"resource/missing\",\n    \"resource\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "49c79e26-e9c5-44b4-8716-58fbd2c35ef6",
+          "name": "List Links",
+          "request": {
+            "name": "List Links",
+            "description": {
+              "content": "List the Links that have been created for the Account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "links"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Partner-supplied request id echoed back in meta.requestId for tracing.",
+                "key": "x-palla-request-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c4998904-c962-4f05-b648-e0a885ed3d22",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "links"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Partner-supplied request id echoed back in meta.requestId for tracing.",
+                    "key": "x-palla-request-id",
+                    "value": "my-request-id"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"code\": 200,\n    \"path\": \"/v1/accounts\",\n    \"requestId\": \"my-request-id\",\n    \"result\": \"success\",\n    \"requestCountry\": \"US\",\n    \"itemCount\": 8796,\n    \"itemLimit\": 1509,\n    \"itemOffset\": 9858,\n    \"itemTotal\": 7108\n  },\n  \"data\": {\n    \"items\": [\n      {\n        \"linkId\": \"lnk_Cx3xqci5\",\n        \"url\": \"string\"\n      },\n      {\n        \"linkId\": \"lnk_Cx3xqci5\",\n        \"url\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "366c93cc-fd7a-4cf5-b4d8-cc4e1b78d542",
+          "name": "Delete Links",
+          "request": {
+            "name": "Delete Links",
+            "description": {
+              "content": "Delete a Link by its id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "links"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Partner-supplied request id echoed back in meta.requestId for tracing.",
+                "key": "x-palla-request-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"linkId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dbb7523e-5def-4c9d-9464-0c9dcc4fae37",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "links"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Partner-supplied request id echoed back in meta.requestId for tracing.",
+                    "key": "x-palla-request-id",
+                    "value": "my-request-id"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"linkId\": \"lnk_CQ2N3GzF\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"code\": 200,\n    \"path\": \"/v1/accounts\",\n    \"requestId\": \"my-request-id\",\n    \"result\": \"success\",\n    \"requestCountry\": \"US\",\n    \"itemCount\": 2448,\n    \"itemLimit\": 4307,\n    \"itemOffset\": 365,\n    \"itemTotal\": 8379\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.platform.palla.app",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0b397d80-dde2-4356-a94d-b035ca0704f1",
+    "name": "Palla Platform Partner Accounts Links API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Palla Platform API enables trusted Partners to embed cross-border peer-to-peer (P2P) money transfers into their own applications. Partners exchange client credentials for a scoped Bearer token that authorizes a specific end User, then manage that User's Account, Payment Methods, Links, Relationships, and Transfers. Responses use a consistent envelope with a `meta` block (code, path, requestId, result) plus either a `data` payload on success or an `error` object (message, rc, description) on failure. Derived from the public Palla Platform Partner Docs Postman collection; not an official Palla-published OpenAPI document.\n\nContact Support:\n Name: Palla Financial",
+      "type": "text/plain"
+    }
+  }
+}

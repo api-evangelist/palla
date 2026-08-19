@@ -1,0 +1,155 @@
+{
+  "item": [
+    {
+      "id": "e3f6662b-3bfb-49ca-b00a-a1c30c455dc6",
+      "name": "Transfers",
+      "description": {
+        "content": "A Transfer is a record of funds sent to a Relationship.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "823c9233-a4e1-4482-bd8a-a1e8e17dd5fb",
+          "name": "List Transfers",
+          "request": {
+            "name": "List Transfers",
+            "description": {
+              "content": "Retrieve a list of all Transfers sent or received by the Account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "transfers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Page size."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Page offset."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Partner-supplied request id echoed back in meta.requestId for tracing.",
+                "key": "x-palla-request-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4d1e8c49-169d-42ce-b231-e114c1983276",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Partner-supplied request id echoed back in meta.requestId for tracing.",
+                    "key": "x-palla-request-id",
+                    "value": "my-request-id"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"code\": 200,\n    \"path\": \"/v1/accounts\",\n    \"requestId\": \"my-request-id\",\n    \"result\": \"success\",\n    \"requestCountry\": \"US\",\n    \"itemCount\": 731,\n    \"itemLimit\": 3422,\n    \"itemOffset\": 8643,\n    \"itemTotal\": 956\n  },\n  \"data\": {\n    \"items\": [\n      {\n        \"transferId\": \"txr_01GR2DZ7PRTZDAN5X3GFR2936F\",\n        \"role\": \"sender\",\n        \"total\": 4061,\n        \"amount\": 497,\n        \"currency\": \"USD\",\n        \"status\": \"completed\",\n        \"created\": 6211\n      },\n      {\n        \"transferId\": \"txr_01GR2DZ7PRTZDAN5X3GFR2936F\",\n        \"role\": \"receiver\",\n        \"total\": 4706,\n        \"amount\": 5511,\n        \"currency\": \"USD\",\n        \"status\": \"completed\",\n        \"created\": 6769\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.platform.palla.app",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0facb399-00d0-44d7-a016-a8f15db4cbc2",
+    "name": "Palla Platform Partner Accounts Transfers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Palla Platform API enables trusted Partners to embed cross-border peer-to-peer (P2P) money transfers into their own applications. Partners exchange client credentials for a scoped Bearer token that authorizes a specific end User, then manage that User's Account, Payment Methods, Links, Relationships, and Transfers. Responses use a consistent envelope with a `meta` block (code, path, requestId, result) plus either a `data` payload on success or an `error` object (message, rc, description) on failure. Derived from the public Palla Platform Partner Docs Postman collection; not an official Palla-published OpenAPI document.\n\nContact Support:\n Name: Palla Financial",
+      "type": "text/plain"
+    }
+  }
+}

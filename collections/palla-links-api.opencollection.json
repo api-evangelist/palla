@@ -1,0 +1,79 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Palla Platform Partner Accounts Links API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Links",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Links",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.platform.palla.app/v1/links",
+            "headers": [
+              {
+                "name": "x-palla-request-id",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "List the Links that have been created for the Account."
+        },
+        {
+          "info": {
+            "name": "Generate Relationship Link",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.platform.palla.app/v1/links",
+            "headers": [
+              {
+                "name": "x-palla-request-id",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Create a unique Link on behalf of the Account."
+        },
+        {
+          "info": {
+            "name": "Delete Links",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.platform.palla.app/v1/links",
+            "headers": [
+              {
+                "name": "x-palla-request-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete a Link by its id."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

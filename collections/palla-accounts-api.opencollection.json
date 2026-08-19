@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Palla Platform Partner Accounts API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch Account Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.platform.palla.app/v1/accounts",
+            "headers": [
+              {
+                "name": "x-palla-request-id",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Get the profile data of an Account, including any associated Identity."
+        },
+        {
+          "info": {
+            "name": "Create Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.platform.palla.app/v1/accounts",
+            "headers": [
+              {
+                "name": "x-palla-request-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an Account for the authorized User. This endpoint is idempotent: if the account exists, the provided values are used to update it."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

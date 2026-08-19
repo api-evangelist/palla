@@ -1,0 +1,104 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Palla Platform Partner Accounts Payment Methods API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Payment Methods",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Payment Methods",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.platform.palla.app/v1/payment-methods",
+            "headers": [
+              {
+                "name": "x-palla-request-id",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "List all Payment Methods belonging to the Account."
+        },
+        {
+          "info": {
+            "name": "Create Payment Method",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.platform.palla.app/v1/payment-methods",
+            "headers": [
+              {
+                "name": "x-palla-request-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Payment Method belonging to the Account. Card data must be RSA-encrypted client-side; see PallaFinancial/card-encrypt."
+        },
+        {
+          "info": {
+            "name": "Update Payment Method",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.platform.palla.app/v1/payment-methods",
+            "headers": [
+              {
+                "name": "x-palla-request-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Payment Method belonging to the Account."
+        },
+        {
+          "info": {
+            "name": "Delete Payment Method",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.platform.palla.app/v1/payment-methods",
+            "headers": [
+              {
+                "name": "x-palla-request-id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete a Payment Method by id belonging to the Account."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
