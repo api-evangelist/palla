@@ -54,6 +54,8 @@ apis:
   humanURL: https://docs.platform.palla.app
   baseURL: https://api.platform.palla.app
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -76,6 +78,8 @@ apis:
   humanURL: https://docs.platform.palla.app
   baseURL: https://api.platform.palla.app
   tags:
+  - Authentication
+  tags_raw:
   - Auth
   properties:
   - type: OpenAPI
