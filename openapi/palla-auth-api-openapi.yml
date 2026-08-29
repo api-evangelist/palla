@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Palla Platform Partner Accounts Auth API
   version: '1.0'
@@ -46,34 +46,6 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 components:
-  responses:
-    Forbidden:
-      description: Forbidden
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorEnvelope'
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorEnvelope'
-    BadRequest:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorEnvelope'
-  parameters:
-    RequestId:
-      name: x-palla-request-id
-      in: header
-      required: false
-      description: Partner-supplied request id echoed back in meta.requestId for tracing.
-      schema:
-        type: string
-        example: my-request-id
   schemas:
     TokenResponse:
       type: object
@@ -86,6 +58,35 @@ components:
             token:
               type: string
               description: Bearer JWT for subsequent API calls.
+    Meta:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 200
+        path:
+          type: string
+          example: /v1/accounts
+        requestId:
+          type: string
+          example: my-request-id
+        result:
+          type: string
+          enum:
+          - success
+          - failure
+          example: success
+        requestCountry:
+          type: string
+          example: US
+        itemCount:
+          type: integer
+        itemLimit:
+          type: integer
+        itemOffset:
+          type: integer
+        itemTotal:
+          type: integer
     TokenRequest:
       type: object
       required:
@@ -118,6 +119,13 @@ components:
           type: string
           description: MFA code
           when MFA is required.: null
+    ErrorEnvelope:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        error:
+          $ref: '#/components/schemas/Error'
     Error:
       type: object
       description: Error object returned on failure responses.
@@ -134,42 +142,34 @@ components:
           example: resource/missing
         resource:
           type: string
-    Meta:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 200
-        path:
-          type: string
-          example: /v1/accounts
-        requestId:
-          type: string
-          example: my-request-id
-        result:
-          type: string
-          enum:
-          - success
-          - failure
-          example: success
-        requestCountry:
-          type: string
-          example: US
-        itemCount:
-          type: integer
-        itemLimit:
-          type: integer
-        itemOffset:
-          type: integer
-        itemTotal:
-          type: integer
-    ErrorEnvelope:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        error:
-          $ref: '#/components/schemas/Error'
+  responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+  parameters:
+    RequestId:
+      name: x-palla-request-id
+      in: header
+      required: false
+      description: Partner-supplied request id echoed back in meta.requestId for tracing.
+      schema:
+        type: string
+        example: my-request-id
   securitySchemes:
     partnerToken:
       type: http

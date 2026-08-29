@@ -21,6 +21,15 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "palla-accounts-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "palla-auth-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "palla-health-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "palla-links-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "palla-payment-methods-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "palla-relationships-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "palla-transfers-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
   "skipped": []
 }

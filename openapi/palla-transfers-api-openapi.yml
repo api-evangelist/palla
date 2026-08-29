@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Palla Platform Partner Accounts Transfers API
   version: '1.0'
@@ -56,31 +56,16 @@ paths:
                         items:
                           $ref: '#/components/schemas/Transfer'
 components:
+  parameters:
+    RequestId:
+      name: x-palla-request-id
+      in: header
+      required: false
+      description: Partner-supplied request id echoed back in meta.requestId for tracing.
+      schema:
+        type: string
+        example: my-request-id
   schemas:
-    Transfer:
-      type: object
-      properties:
-        transferId:
-          type: string
-          example: txr_01GR2DZ7PRTZDAN5X3GFR2936F
-        role:
-          type: string
-          enum:
-          - sender
-          - receiver
-        total:
-          type: integer
-        amount:
-          type: integer
-        currency:
-          type: string
-          example: USD
-        status:
-          type: string
-          example: completed
-        created:
-          type: integer
-          format: int64
     Meta:
       type: object
       properties:
@@ -110,15 +95,30 @@ components:
           type: integer
         itemTotal:
           type: integer
-  parameters:
-    RequestId:
-      name: x-palla-request-id
-      in: header
-      required: false
-      description: Partner-supplied request id echoed back in meta.requestId for tracing.
-      schema:
-        type: string
-        example: my-request-id
+    Transfer:
+      type: object
+      properties:
+        transferId:
+          type: string
+          example: txr_01GR2DZ7PRTZDAN5X3GFR2936F
+        role:
+          type: string
+          enum:
+          - sender
+          - receiver
+        total:
+          type: integer
+        amount:
+          type: integer
+        currency:
+          type: string
+          example: USD
+        status:
+          type: string
+          example: completed
+        created:
+          type: integer
+          format: int64
   securitySchemes:
     partnerToken:
       type: http

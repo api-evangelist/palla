@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Palla Platform Partner Accounts Links API
   version: '1.0'
@@ -93,40 +93,7 @@ paths:
                   meta:
                     $ref: '#/components/schemas/Meta'
 components:
-  parameters:
-    RequestId:
-      name: x-palla-request-id
-      in: header
-      required: false
-      description: Partner-supplied request id echoed back in meta.requestId for tracing.
-      schema:
-        type: string
-        example: my-request-id
   schemas:
-    Link:
-      type: object
-      properties:
-        linkId:
-          type: string
-          example: lnk_Cx3xqci5
-        url:
-          type: string
-    Error:
-      type: object
-      description: Error object returned on failure responses.
-      properties:
-        message:
-          type: string
-          example: payment_methods
-        rc:
-          type: integer
-          description: Palla numeric result code
-          example: 22
-        description:
-          type: string
-          example: resource/missing
-        resource:
-          type: string
     Meta:
       type: object
       properties:
@@ -156,13 +123,6 @@ components:
           type: integer
         itemTotal:
           type: integer
-    ErrorEnvelope:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        error:
-          $ref: '#/components/schemas/Error'
     DeleteLinkRequest:
       type: object
       required:
@@ -171,6 +131,46 @@ components:
         linkId:
           type: string
           example: lnk_CQ2N3GzF
+    ErrorEnvelope:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        error:
+          $ref: '#/components/schemas/Error'
+    Link:
+      type: object
+      properties:
+        linkId:
+          type: string
+          example: lnk_Cx3xqci5
+        url:
+          type: string
+    Error:
+      type: object
+      description: Error object returned on failure responses.
+      properties:
+        message:
+          type: string
+          example: payment_methods
+        rc:
+          type: integer
+          description: Palla numeric result code
+          example: 22
+        description:
+          type: string
+          example: resource/missing
+        resource:
+          type: string
+  parameters:
+    RequestId:
+      name: x-palla-request-id
+      in: header
+      required: false
+      description: Partner-supplied request id echoed back in meta.requestId for tracing.
+      schema:
+        type: string
+        example: my-request-id
   securitySchemes:
     partnerToken:
       type: http

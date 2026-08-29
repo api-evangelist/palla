@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Palla Platform Partner Accounts Payment Methods API
   version: '1.0'
@@ -140,62 +140,6 @@ paths:
                     $ref: '#/components/schemas/Meta'
 components:
   schemas:
-    DeletePaymentMethodRequest:
-      type: object
-      required:
-      - paymentMethodId
-      properties:
-        paymentMethodId:
-          type: string
-          example: pmt_01FEVEE4BJ9NT7QS08ZJ9RAVZC
-    UpdatePaymentMethodRequest:
-      type: object
-      required:
-      - paymentMethodId
-      properties:
-        paymentMethodId:
-          type: string
-          example: pmt_01FW482PM57E4HT2JK2HGDBR4B
-        primary:
-          type: boolean
-        configuration:
-          type: object
-    Error:
-      type: object
-      description: Error object returned on failure responses.
-      properties:
-        message:
-          type: string
-          example: payment_methods
-        rc:
-          type: integer
-          description: Palla numeric result code
-          example: 22
-        description:
-          type: string
-          example: resource/missing
-        resource:
-          type: string
-    PaymentMethod:
-      type: object
-      properties:
-        paymentMethodId:
-          type: string
-          example: pmt_01J0Y5P8TQ950YKY7HZXRAH81A
-        type:
-          type: string
-          example: card
-        primary:
-          type: boolean
-        country:
-          type: string
-          example: US
-        brand:
-          type: string
-          example: visa
-        last4:
-          type: string
-          example: '0004'
     Meta:
       type: object
       properties:
@@ -225,6 +169,14 @@ components:
           type: integer
         itemTotal:
           type: integer
+    DeletePaymentMethodRequest:
+      type: object
+      required:
+      - paymentMethodId
+      properties:
+        paymentMethodId:
+          type: string
+          example: pmt_01FEVEE4BJ9NT7QS08ZJ9RAVZC
     ErrorEnvelope:
       type: object
       properties:
@@ -232,6 +184,34 @@ components:
           $ref: '#/components/schemas/Meta'
         error:
           $ref: '#/components/schemas/Error'
+    Error:
+      type: object
+      description: Error object returned on failure responses.
+      properties:
+        message:
+          type: string
+          example: payment_methods
+        rc:
+          type: integer
+          description: Palla numeric result code
+          example: 22
+        description:
+          type: string
+          example: resource/missing
+        resource:
+          type: string
+    UpdatePaymentMethodRequest:
+      type: object
+      required:
+      - paymentMethodId
+      properties:
+        paymentMethodId:
+          type: string
+          example: pmt_01FW482PM57E4HT2JK2HGDBR4B
+        primary:
+          type: boolean
+        configuration:
+          type: object
     CreatePaymentMethodRequest:
       type: object
       required:
@@ -256,6 +236,33 @@ components:
             data:
               type: string
               description: RSA-encrypted card data (see PallaFinancial/card-encrypt).
+    PaymentMethod:
+      type: object
+      properties:
+        paymentMethodId:
+          type: string
+          example: pmt_01J0Y5P8TQ950YKY7HZXRAH81A
+        type:
+          type: string
+          example: card
+        primary:
+          type: boolean
+        country:
+          type: string
+          example: US
+        brand:
+          type: string
+          example: visa
+        last4:
+          type: string
+          example: '0004'
+  responses:
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
   parameters:
     RequestId:
       name: x-palla-request-id
@@ -265,13 +272,6 @@ components:
       schema:
         type: string
         example: my-request-id
-  responses:
-    NotFound:
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorEnvelope'
   securitySchemes:
     partnerToken:
       type: http

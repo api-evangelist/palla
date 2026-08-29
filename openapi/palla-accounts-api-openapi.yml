@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Palla Platform Partner Accounts API
   version: '1.0'
@@ -64,15 +64,6 @@ paths:
                   data:
                     $ref: '#/components/schemas/Account'
 components:
-  parameters:
-    RequestId:
-      name: x-palla-request-id
-      in: header
-      required: false
-      description: Partner-supplied request id echoed back in meta.requestId for tracing.
-      schema:
-        type: string
-        example: my-request-id
   schemas:
     CreateAccountRequest:
       type: object
@@ -130,6 +121,18 @@ components:
         last:
           type: string
           example: Perez
+    DateOfBirth:
+      type: object
+      properties:
+        day:
+          type: integer
+          example: 30
+        month:
+          type: integer
+          example: 5
+        year:
+          type: integer
+          example: 1979
     Account:
       type: object
       properties:
@@ -146,18 +149,15 @@ components:
           type: string
         legalName:
           $ref: '#/components/schemas/LegalName'
-    DateOfBirth:
-      type: object
-      properties:
-        day:
-          type: integer
-          example: 30
-        month:
-          type: integer
-          example: 5
-        year:
-          type: integer
-          example: 1979
+  parameters:
+    RequestId:
+      name: x-palla-request-id
+      in: header
+      required: false
+      description: Partner-supplied request id echoed back in meta.requestId for tracing.
+      schema:
+        type: string
+        example: my-request-id
   securitySchemes:
     partnerToken:
       type: http
