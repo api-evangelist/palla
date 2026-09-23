@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: Palla Platform Partner Accounts API
   version: '1.0'
-  description: The Palla Platform API enables trusted Partners to embed cross-border peer-to-peer (P2P) money transfers into their own applications. Partners exchange client credentials for a scoped Bearer token that authorizes a specific end User, then manage that User's Account, Payment Methods, Links, Relationships, and Transfers. Responses use a consistent envelope with a `meta` block (code, path, requestId, result) plus either a `data` payload on success or an `error` object (message, rc, description) on failure. Derived from the public Palla Platform Partner Docs Postman collection; not an official Palla-published OpenAPI document.
+  description: The Palla Platform API enables trusted Partners to embed cross-border peer-to-peer (P2P) money transfers into their own applications.
   contact:
     name: Palla Financial
     url: https://www.palla.com
@@ -65,6 +65,18 @@ paths:
                     $ref: '#/components/schemas/Account'
 components:
   schemas:
+    DateOfBirth:
+      type: object
+      properties:
+        day:
+          type: integer
+          example: 30
+        month:
+          type: integer
+          example: 5
+        year:
+          type: integer
+          example: 1979
     CreateAccountRequest:
       type: object
       required:
@@ -77,6 +89,22 @@ components:
         displayName:
           type: string
           example: Juan Perez
+    Account:
+      type: object
+      properties:
+        created:
+          type: integer
+          format: int64
+        type:
+          type: string
+          example: personal
+        status:
+          type: string
+          example: active
+        displayName:
+          type: string
+        legalName:
+          $ref: '#/components/schemas/LegalName'
     Meta:
       type: object
       properties:
@@ -121,34 +149,6 @@ components:
         last:
           type: string
           example: Perez
-    DateOfBirth:
-      type: object
-      properties:
-        day:
-          type: integer
-          example: 30
-        month:
-          type: integer
-          example: 5
-        year:
-          type: integer
-          example: 1979
-    Account:
-      type: object
-      properties:
-        created:
-          type: integer
-          format: int64
-        type:
-          type: string
-          example: personal
-        status:
-          type: string
-          example: active
-        displayName:
-          type: string
-        legalName:
-          $ref: '#/components/schemas/LegalName'
   parameters:
     RequestId:
       name: x-palla-request-id

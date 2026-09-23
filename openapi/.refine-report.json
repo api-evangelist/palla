@@ -1,13 +1,7 @@
 {
   "provider": "palla",
   "sources": [
-    "palla-accounts-api-openapi.yml",
-    "palla-auth-api-openapi.yml",
-    "palla-health-api-openapi.yml",
-    "palla-links-api-openapi.yml",
-    "palla-payment-methods-api-openapi.yml",
-    "palla-relationships-api-openapi.yml",
-    "palla-transfers-api-openapi.yml"
+    "_ae-authored/palla-platform-openapi.yml"
   ],
   "outputs": [
     "palla-accounts-api-openapi.yml",
@@ -22,14 +16,17 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "palla-accounts-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "palla-auth-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "palla-health-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "palla-links-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "palla-payment-methods-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "palla-relationships-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "palla-transfers-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "palla-platform-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "palla-accounts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "palla-auth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "palla-health-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "palla-links-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "palla-payment-methods-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "palla-relationships-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "palla-transfers-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

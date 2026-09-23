@@ -1,8 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Palla Platform Partner Accounts Relationships API
+  title: Palla Platform Partner Relationships API
   version: '1.0'
-  description: The Palla Platform API enables trusted Partners to embed cross-border peer-to-peer (P2P) money transfers into their own applications. Partners exchange client credentials for a scoped Bearer token that authorizes a specific end User, then manage that User's Account, Payment Methods, Links, Relationships, and Transfers. Responses use a consistent envelope with a `meta` block (code, path, requestId, result) plus either a `data` payload on success or an `error` object (message, rc, description) on failure. Derived from the public Palla Platform Partner Docs Postman collection; not an official Palla-published OpenAPI document.
+  description: The Palla Platform API enables trusted Partners to embed cross-border peer-to-peer (P2P) money transfers into their own applications.
   contact:
     name: Palla Financial
     url: https://www.palla.com
@@ -57,6 +57,22 @@ paths:
                 $ref: '#/components/schemas/ErrorEnvelope'
 components:
   schemas:
+    Error:
+      type: object
+      description: Error object returned on failure responses.
+      properties:
+        message:
+          type: string
+          example: payment_methods
+        rc:
+          type: integer
+          description: Palla numeric result code
+          example: 22
+        description:
+          type: string
+          example: resource/missing
+        resource:
+          type: string
     Meta:
       type: object
       properties:
@@ -97,22 +113,6 @@ components:
       type: object
       properties:
         relationshipId:
-          type: string
-    Error:
-      type: object
-      description: Error object returned on failure responses.
-      properties:
-        message:
-          type: string
-          example: payment_methods
-        rc:
-          type: integer
-          description: Palla numeric result code
-          example: 22
-        description:
-          type: string
-          example: resource/missing
-        resource:
           type: string
   parameters:
     RequestId:

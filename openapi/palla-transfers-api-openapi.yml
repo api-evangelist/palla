@@ -1,8 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Palla Platform Partner Accounts Transfers API
+  title: Palla Platform Partner Transfers API
   version: '1.0'
-  description: The Palla Platform API enables trusted Partners to embed cross-border peer-to-peer (P2P) money transfers into their own applications. Partners exchange client credentials for a scoped Bearer token that authorizes a specific end User, then manage that User's Account, Payment Methods, Links, Relationships, and Transfers. Responses use a consistent envelope with a `meta` block (code, path, requestId, result) plus either a `data` payload on success or an `error` object (message, rc, description) on failure. Derived from the public Palla Platform Partner Docs Postman collection; not an official Palla-published OpenAPI document.
+  description: The Palla Platform API enables trusted Partners to embed cross-border peer-to-peer (P2P) money transfers into their own applications.
   contact:
     name: Palla Financial
     url: https://www.palla.com
@@ -56,16 +56,31 @@ paths:
                         items:
                           $ref: '#/components/schemas/Transfer'
 components:
-  parameters:
-    RequestId:
-      name: x-palla-request-id
-      in: header
-      required: false
-      description: Partner-supplied request id echoed back in meta.requestId for tracing.
-      schema:
-        type: string
-        example: my-request-id
   schemas:
+    Transfer:
+      type: object
+      properties:
+        transferId:
+          type: string
+          example: txr_01GR2DZ7PRTZDAN5X3GFR2936F
+        role:
+          type: string
+          enum:
+          - sender
+          - receiver
+        total:
+          type: integer
+        amount:
+          type: integer
+        currency:
+          type: string
+          example: USD
+        status:
+          type: string
+          example: completed
+        created:
+          type: integer
+          format: int64
     Meta:
       type: object
       properties:
@@ -95,30 +110,15 @@ components:
           type: integer
         itemTotal:
           type: integer
-    Transfer:
-      type: object
-      properties:
-        transferId:
-          type: string
-          example: txr_01GR2DZ7PRTZDAN5X3GFR2936F
-        role:
-          type: string
-          enum:
-          - sender
-          - receiver
-        total:
-          type: integer
-        amount:
-          type: integer
-        currency:
-          type: string
-          example: USD
-        status:
-          type: string
-          example: completed
-        created:
-          type: integer
-          format: int64
+  parameters:
+    RequestId:
+      name: x-palla-request-id
+      in: header
+      required: false
+      description: Partner-supplied request id echoed back in meta.requestId for tracing.
+      schema:
+        type: string
+        example: my-request-id
   securitySchemes:
     partnerToken:
       type: http

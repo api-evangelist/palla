@@ -1,8 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Palla Platform Partner Accounts Links API
+  title: Palla Platform Partner Links API
   version: '1.0'
-  description: The Palla Platform API enables trusted Partners to embed cross-border peer-to-peer (P2P) money transfers into their own applications. Partners exchange client credentials for a scoped Bearer token that authorizes a specific end User, then manage that User's Account, Payment Methods, Links, Relationships, and Transfers. Responses use a consistent envelope with a `meta` block (code, path, requestId, result) plus either a `data` payload on success or an `error` object (message, rc, description) on failure. Derived from the public Palla Platform Partner Docs Postman collection; not an official Palla-published OpenAPI document.
+  description: The Palla Platform API enables trusted Partners to embed cross-border peer-to-peer (P2P) money transfers into their own applications.
   contact:
     name: Palla Financial
     url: https://www.palla.com
@@ -94,6 +94,38 @@ paths:
                     $ref: '#/components/schemas/Meta'
 components:
   schemas:
+    Error:
+      type: object
+      description: Error object returned on failure responses.
+      properties:
+        message:
+          type: string
+          example: payment_methods
+        rc:
+          type: integer
+          description: Palla numeric result code
+          example: 22
+        description:
+          type: string
+          example: resource/missing
+        resource:
+          type: string
+    Link:
+      type: object
+      properties:
+        linkId:
+          type: string
+          example: lnk_Cx3xqci5
+        url:
+          type: string
+    DeleteLinkRequest:
+      type: object
+      required:
+      - linkId
+      properties:
+        linkId:
+          type: string
+          example: lnk_CQ2N3GzF
     Meta:
       type: object
       properties:
@@ -123,14 +155,6 @@ components:
           type: integer
         itemTotal:
           type: integer
-    DeleteLinkRequest:
-      type: object
-      required:
-      - linkId
-      properties:
-        linkId:
-          type: string
-          example: lnk_CQ2N3GzF
     ErrorEnvelope:
       type: object
       properties:
@@ -138,30 +162,6 @@ components:
           $ref: '#/components/schemas/Meta'
         error:
           $ref: '#/components/schemas/Error'
-    Link:
-      type: object
-      properties:
-        linkId:
-          type: string
-          example: lnk_Cx3xqci5
-        url:
-          type: string
-    Error:
-      type: object
-      description: Error object returned on failure responses.
-      properties:
-        message:
-          type: string
-          example: payment_methods
-        rc:
-          type: integer
-          description: Palla numeric result code
-          example: 22
-        description:
-          type: string
-          example: resource/missing
-        resource:
-          type: string
   parameters:
     RequestId:
       name: x-palla-request-id

@@ -1,8 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Palla Platform Partner Accounts Health API
+  title: Palla Platform Partner Health API
   version: '1.0'
-  description: The Palla Platform API enables trusted Partners to embed cross-border peer-to-peer (P2P) money transfers into their own applications. Partners exchange client credentials for a scoped Bearer token that authorizes a specific end User, then manage that User's Account, Payment Methods, Links, Relationships, and Transfers. Responses use a consistent envelope with a `meta` block (code, path, requestId, result) plus either a `data` payload on success or an `error` object (message, rc, description) on failure. Derived from the public Palla Platform Partner Docs Postman collection; not an official Palla-published OpenAPI document.
+  description: The Palla Platform API enables trusted Partners to embed cross-border peer-to-peer (P2P) money transfers into their own applications.
   contact:
     name: Palla Financial
     url: https://www.palla.com

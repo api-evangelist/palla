@@ -1,8 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Palla Platform Partner Accounts Payment Methods API
+  title: Palla Platform Partner Payment Methods API
   version: '1.0'
-  description: The Palla Platform API enables trusted Partners to embed cross-border peer-to-peer (P2P) money transfers into their own applications. Partners exchange client credentials for a scoped Bearer token that authorizes a specific end User, then manage that User's Account, Payment Methods, Links, Relationships, and Transfers. Responses use a consistent envelope with a `meta` block (code, path, requestId, result) plus either a `data` payload on success or an `error` object (message, rc, description) on failure. Derived from the public Palla Platform Partner Docs Postman collection; not an official Palla-published OpenAPI document.
+  description: The Palla Platform API enables trusted Partners to embed cross-border peer-to-peer (P2P) money transfers into their own applications.
   contact:
     name: Palla Financial
     url: https://www.palla.com
@@ -140,50 +140,6 @@ paths:
                     $ref: '#/components/schemas/Meta'
 components:
   schemas:
-    Meta:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 200
-        path:
-          type: string
-          example: /v1/accounts
-        requestId:
-          type: string
-          example: my-request-id
-        result:
-          type: string
-          enum:
-          - success
-          - failure
-          example: success
-        requestCountry:
-          type: string
-          example: US
-        itemCount:
-          type: integer
-        itemLimit:
-          type: integer
-        itemOffset:
-          type: integer
-        itemTotal:
-          type: integer
-    DeletePaymentMethodRequest:
-      type: object
-      required:
-      - paymentMethodId
-      properties:
-        paymentMethodId:
-          type: string
-          example: pmt_01FEVEE4BJ9NT7QS08ZJ9RAVZC
-    ErrorEnvelope:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        error:
-          $ref: '#/components/schemas/Error'
     Error:
       type: object
       description: Error object returned on failure responses.
@@ -200,18 +156,6 @@ components:
           example: resource/missing
         resource:
           type: string
-    UpdatePaymentMethodRequest:
-      type: object
-      required:
-      - paymentMethodId
-      properties:
-        paymentMethodId:
-          type: string
-          example: pmt_01FW482PM57E4HT2JK2HGDBR4B
-        primary:
-          type: boolean
-        configuration:
-          type: object
     CreatePaymentMethodRequest:
       type: object
       required:
@@ -256,13 +200,62 @@ components:
         last4:
           type: string
           example: '0004'
-  responses:
-    NotFound:
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorEnvelope'
+    UpdatePaymentMethodRequest:
+      type: object
+      required:
+      - paymentMethodId
+      properties:
+        paymentMethodId:
+          type: string
+          example: pmt_01FW482PM57E4HT2JK2HGDBR4B
+        primary:
+          type: boolean
+        configuration:
+          type: object
+    DeletePaymentMethodRequest:
+      type: object
+      required:
+      - paymentMethodId
+      properties:
+        paymentMethodId:
+          type: string
+          example: pmt_01FEVEE4BJ9NT7QS08ZJ9RAVZC
+    Meta:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 200
+        path:
+          type: string
+          example: /v1/accounts
+        requestId:
+          type: string
+          example: my-request-id
+        result:
+          type: string
+          enum:
+          - success
+          - failure
+          example: success
+        requestCountry:
+          type: string
+          example: US
+        itemCount:
+          type: integer
+        itemLimit:
+          type: integer
+        itemOffset:
+          type: integer
+        itemTotal:
+          type: integer
+    ErrorEnvelope:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        error:
+          $ref: '#/components/schemas/Error'
   parameters:
     RequestId:
       name: x-palla-request-id
@@ -272,6 +265,13 @@ components:
       schema:
         type: string
         example: my-request-id
+  responses:
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
   securitySchemes:
     partnerToken:
       type: http
