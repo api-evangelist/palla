@@ -94,38 +94,6 @@ paths:
                     $ref: '#/components/schemas/Meta'
 components:
   schemas:
-    Error:
-      type: object
-      description: Error object returned on failure responses.
-      properties:
-        message:
-          type: string
-          example: payment_methods
-        rc:
-          type: integer
-          description: Palla numeric result code
-          example: 22
-        description:
-          type: string
-          example: resource/missing
-        resource:
-          type: string
-    Link:
-      type: object
-      properties:
-        linkId:
-          type: string
-          example: lnk_Cx3xqci5
-        url:
-          type: string
-    DeleteLinkRequest:
-      type: object
-      required:
-      - linkId
-      properties:
-        linkId:
-          type: string
-          example: lnk_CQ2N3GzF
     Meta:
       type: object
       properties:
@@ -155,6 +123,22 @@ components:
           type: integer
         itemTotal:
           type: integer
+    Error:
+      type: object
+      description: Error object returned on failure responses.
+      properties:
+        message:
+          type: string
+          example: payment_methods
+        rc:
+          type: integer
+          description: Palla numeric result code
+          example: 22
+        description:
+          type: string
+          example: resource/missing
+        resource:
+          type: string
     ErrorEnvelope:
       type: object
       properties:
@@ -162,6 +146,22 @@ components:
           $ref: '#/components/schemas/Meta'
         error:
           $ref: '#/components/schemas/Error'
+    Link:
+      type: object
+      properties:
+        linkId:
+          type: string
+          example: lnk_Cx3xqci5
+        url:
+          type: string
+    DeleteLinkRequest:
+      type: object
+      required:
+      - linkId
+      properties:
+        linkId:
+          type: string
+          example: lnk_CQ2N3GzF
   parameters:
     RequestId:
       name: x-palla-request-id

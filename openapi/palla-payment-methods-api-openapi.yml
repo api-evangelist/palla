@@ -140,6 +140,35 @@ paths:
                     $ref: '#/components/schemas/Meta'
 components:
   schemas:
+    Meta:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 200
+        path:
+          type: string
+          example: /v1/accounts
+        requestId:
+          type: string
+          example: my-request-id
+        result:
+          type: string
+          enum:
+          - success
+          - failure
+          example: success
+        requestCountry:
+          type: string
+          example: US
+        itemCount:
+          type: integer
+        itemLimit:
+          type: integer
+        itemOffset:
+          type: integer
+        itemTotal:
+          type: integer
     Error:
       type: object
       description: Error object returned on failure responses.
@@ -200,6 +229,13 @@ components:
         last4:
           type: string
           example: '0004'
+    ErrorEnvelope:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        error:
+          $ref: '#/components/schemas/Error'
     UpdatePaymentMethodRequest:
       type: object
       required:
@@ -220,42 +256,13 @@ components:
         paymentMethodId:
           type: string
           example: pmt_01FEVEE4BJ9NT7QS08ZJ9RAVZC
-    Meta:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 200
-        path:
-          type: string
-          example: /v1/accounts
-        requestId:
-          type: string
-          example: my-request-id
-        result:
-          type: string
-          enum:
-          - success
-          - failure
-          example: success
-        requestCountry:
-          type: string
-          example: US
-        itemCount:
-          type: integer
-        itemLimit:
-          type: integer
-        itemOffset:
-          type: integer
-        itemTotal:
-          type: integer
-    ErrorEnvelope:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        error:
-          $ref: '#/components/schemas/Error'
+  responses:
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
   parameters:
     RequestId:
       name: x-palla-request-id
@@ -265,13 +272,6 @@ components:
       schema:
         type: string
         example: my-request-id
-  responses:
-    NotFound:
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorEnvelope'
   securitySchemes:
     partnerToken:
       type: http

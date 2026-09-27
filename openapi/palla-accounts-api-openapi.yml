@@ -65,6 +65,21 @@ paths:
                     $ref: '#/components/schemas/Account'
 components:
   schemas:
+    LegalName:
+      type: object
+      required:
+      - first
+      - last
+      properties:
+        first:
+          type: string
+          example: Juan
+        middle:
+          type: string
+          example: Luis
+        last:
+          type: string
+          example: Perez
     DateOfBirth:
       type: object
       properties:
@@ -77,34 +92,6 @@ components:
         year:
           type: integer
           example: 1979
-    CreateAccountRequest:
-      type: object
-      required:
-      - legalName
-      properties:
-        legalName:
-          $ref: '#/components/schemas/LegalName'
-        dob:
-          $ref: '#/components/schemas/DateOfBirth'
-        displayName:
-          type: string
-          example: Juan Perez
-    Account:
-      type: object
-      properties:
-        created:
-          type: integer
-          format: int64
-        type:
-          type: string
-          example: personal
-        status:
-          type: string
-          example: active
-        displayName:
-          type: string
-        legalName:
-          $ref: '#/components/schemas/LegalName'
     Meta:
       type: object
       properties:
@@ -134,21 +121,34 @@ components:
           type: integer
         itemTotal:
           type: integer
-    LegalName:
+    CreateAccountRequest:
       type: object
       required:
-      - first
-      - last
+      - legalName
       properties:
-        first:
+        legalName:
+          $ref: '#/components/schemas/LegalName'
+        dob:
+          $ref: '#/components/schemas/DateOfBirth'
+        displayName:
           type: string
-          example: Juan
-        middle:
+          example: Juan Perez
+    Account:
+      type: object
+      properties:
+        created:
+          type: integer
+          format: int64
+        type:
           type: string
-          example: Luis
-        last:
+          example: personal
+        status:
           type: string
-          example: Perez
+          example: active
+        displayName:
+          type: string
+        legalName:
+          $ref: '#/components/schemas/LegalName'
   parameters:
     RequestId:
       name: x-palla-request-id
