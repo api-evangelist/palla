@@ -46,37 +46,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 components:
-  responses:
-    BadRequest:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorEnvelope'
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorEnvelope'
-    Forbidden:
-      description: Forbidden
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorEnvelope'
   schemas:
-    TokenResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: object
-          properties:
-            token:
-              type: string
-              description: Bearer JWT for subsequent API calls.
     Meta:
       type: object
       properties:
@@ -106,29 +76,6 @@ components:
           type: integer
         itemTotal:
           type: integer
-    Error:
-      type: object
-      description: Error object returned on failure responses.
-      properties:
-        message:
-          type: string
-          example: payment_methods
-        rc:
-          type: integer
-          description: Palla numeric result code
-          example: 22
-        description:
-          type: string
-          example: resource/missing
-        resource:
-          type: string
-    ErrorEnvelope:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        error:
-          $ref: '#/components/schemas/Error'
     TokenRequest:
       type: object
       required:
@@ -161,6 +108,40 @@ components:
           type: string
           description: MFA code
           when MFA is required.: null
+    TokenResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: object
+          properties:
+            token:
+              type: string
+              description: Bearer JWT for subsequent API calls.
+    Error:
+      type: object
+      description: Error object returned on failure responses.
+      properties:
+        message:
+          type: string
+          example: payment_methods
+        rc:
+          type: integer
+          description: Palla numeric result code
+          example: 22
+        description:
+          type: string
+          example: resource/missing
+        resource:
+          type: string
+    ErrorEnvelope:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        error:
+          $ref: '#/components/schemas/Error'
   parameters:
     RequestId:
       name: x-palla-request-id
@@ -170,6 +151,25 @@ components:
       schema:
         type: string
         example: my-request-id
+  responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
   securitySchemes:
     partnerToken:
       type: http

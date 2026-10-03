@@ -169,6 +169,18 @@ components:
           type: integer
         itemTotal:
           type: integer
+    UpdatePaymentMethodRequest:
+      type: object
+      required:
+      - paymentMethodId
+      properties:
+        paymentMethodId:
+          type: string
+          example: pmt_01FW482PM57E4HT2JK2HGDBR4B
+        primary:
+          type: boolean
+        configuration:
+          type: object
     Error:
       type: object
       description: Error object returned on failure responses.
@@ -185,6 +197,26 @@ components:
           example: resource/missing
         resource:
           type: string
+    PaymentMethod:
+      type: object
+      properties:
+        paymentMethodId:
+          type: string
+          example: pmt_01J0Y5P8TQ950YKY7HZXRAH81A
+        type:
+          type: string
+          example: card
+        primary:
+          type: boolean
+        country:
+          type: string
+          example: US
+        brand:
+          type: string
+          example: visa
+        last4:
+          type: string
+          example: '0004'
     CreatePaymentMethodRequest:
       type: object
       required:
@@ -209,45 +241,6 @@ components:
             data:
               type: string
               description: RSA-encrypted card data (see PallaFinancial/card-encrypt).
-    PaymentMethod:
-      type: object
-      properties:
-        paymentMethodId:
-          type: string
-          example: pmt_01J0Y5P8TQ950YKY7HZXRAH81A
-        type:
-          type: string
-          example: card
-        primary:
-          type: boolean
-        country:
-          type: string
-          example: US
-        brand:
-          type: string
-          example: visa
-        last4:
-          type: string
-          example: '0004'
-    ErrorEnvelope:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        error:
-          $ref: '#/components/schemas/Error'
-    UpdatePaymentMethodRequest:
-      type: object
-      required:
-      - paymentMethodId
-      properties:
-        paymentMethodId:
-          type: string
-          example: pmt_01FW482PM57E4HT2JK2HGDBR4B
-        primary:
-          type: boolean
-        configuration:
-          type: object
     DeletePaymentMethodRequest:
       type: object
       required:
@@ -256,6 +249,13 @@ components:
         paymentMethodId:
           type: string
           example: pmt_01FEVEE4BJ9NT7QS08ZJ9RAVZC
+    ErrorEnvelope:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        error:
+          $ref: '#/components/schemas/Error'
   responses:
     NotFound:
       description: Not Found

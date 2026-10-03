@@ -139,21 +139,6 @@ components:
           example: resource/missing
         resource:
           type: string
-    ErrorEnvelope:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        error:
-          $ref: '#/components/schemas/Error'
-    Link:
-      type: object
-      properties:
-        linkId:
-          type: string
-          example: lnk_Cx3xqci5
-        url:
-          type: string
     DeleteLinkRequest:
       type: object
       required:
@@ -162,6 +147,21 @@ components:
         linkId:
           type: string
           example: lnk_CQ2N3GzF
+    Link:
+      type: object
+      properties:
+        linkId:
+          type: string
+          example: lnk_Cx3xqci5
+        url:
+          type: string
+    ErrorEnvelope:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        error:
+          $ref: '#/components/schemas/Error'
   parameters:
     RequestId:
       name: x-palla-request-id
