@@ -65,6 +65,22 @@ paths:
                     $ref: '#/components/schemas/Account'
 components:
   schemas:
+    Account:
+      type: object
+      properties:
+        created:
+          type: integer
+          format: int64
+        type:
+          type: string
+          example: personal
+        status:
+          type: string
+          example: active
+        displayName:
+          type: string
+        legalName:
+          $ref: '#/components/schemas/LegalName'
     Meta:
       type: object
       properties:
@@ -94,6 +110,18 @@ components:
           type: integer
         itemTotal:
           type: integer
+    DateOfBirth:
+      type: object
+      properties:
+        day:
+          type: integer
+          example: 30
+        month:
+          type: integer
+          example: 5
+        year:
+          type: integer
+          example: 1979
     LegalName:
       type: object
       required:
@@ -109,34 +137,6 @@ components:
         last:
           type: string
           example: Perez
-    Account:
-      type: object
-      properties:
-        created:
-          type: integer
-          format: int64
-        type:
-          type: string
-          example: personal
-        status:
-          type: string
-          example: active
-        displayName:
-          type: string
-        legalName:
-          $ref: '#/components/schemas/LegalName'
-    DateOfBirth:
-      type: object
-      properties:
-        day:
-          type: integer
-          example: 30
-        month:
-          type: integer
-          example: 5
-        year:
-          type: integer
-          example: 1979
     CreateAccountRequest:
       type: object
       required:

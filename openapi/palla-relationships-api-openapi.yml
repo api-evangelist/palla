@@ -56,6 +56,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorEnvelope'
 components:
+  parameters:
+    RequestId:
+      name: x-palla-request-id
+      in: header
+      required: false
+      description: Partner-supplied request id echoed back in meta.requestId for tracing.
+      schema:
+        type: string
+        example: my-request-id
   schemas:
     Meta:
       type: object
@@ -102,6 +111,11 @@ components:
           example: resource/missing
         resource:
           type: string
+    Relationship:
+      type: object
+      properties:
+        relationshipId:
+          type: string
     ErrorEnvelope:
       type: object
       properties:
@@ -109,20 +123,6 @@ components:
           $ref: '#/components/schemas/Meta'
         error:
           $ref: '#/components/schemas/Error'
-    Relationship:
-      type: object
-      properties:
-        relationshipId:
-          type: string
-  parameters:
-    RequestId:
-      name: x-palla-request-id
-      in: header
-      required: false
-      description: Partner-supplied request id echoed back in meta.requestId for tracing.
-      schema:
-        type: string
-        example: my-request-id
   securitySchemes:
     partnerToken:
       type: http

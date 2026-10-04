@@ -140,6 +140,26 @@ paths:
                     $ref: '#/components/schemas/Meta'
 components:
   schemas:
+    PaymentMethod:
+      type: object
+      properties:
+        paymentMethodId:
+          type: string
+          example: pmt_01J0Y5P8TQ950YKY7HZXRAH81A
+        type:
+          type: string
+          example: card
+        primary:
+          type: boolean
+        country:
+          type: string
+          example: US
+        brand:
+          type: string
+          example: visa
+        last4:
+          type: string
+          example: '0004'
     Meta:
       type: object
       properties:
@@ -197,26 +217,21 @@ components:
           example: resource/missing
         resource:
           type: string
-    PaymentMethod:
+    ErrorEnvelope:
       type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        error:
+          $ref: '#/components/schemas/Error'
+    DeletePaymentMethodRequest:
+      type: object
+      required:
+      - paymentMethodId
       properties:
         paymentMethodId:
           type: string
-          example: pmt_01J0Y5P8TQ950YKY7HZXRAH81A
-        type:
-          type: string
-          example: card
-        primary:
-          type: boolean
-        country:
-          type: string
-          example: US
-        brand:
-          type: string
-          example: visa
-        last4:
-          type: string
-          example: '0004'
+          example: pmt_01FEVEE4BJ9NT7QS08ZJ9RAVZC
     CreatePaymentMethodRequest:
       type: object
       required:
@@ -241,28 +256,6 @@ components:
             data:
               type: string
               description: RSA-encrypted card data (see PallaFinancial/card-encrypt).
-    DeletePaymentMethodRequest:
-      type: object
-      required:
-      - paymentMethodId
-      properties:
-        paymentMethodId:
-          type: string
-          example: pmt_01FEVEE4BJ9NT7QS08ZJ9RAVZC
-    ErrorEnvelope:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        error:
-          $ref: '#/components/schemas/Error'
-  responses:
-    NotFound:
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorEnvelope'
   parameters:
     RequestId:
       name: x-palla-request-id
@@ -272,6 +265,13 @@ components:
       schema:
         type: string
         example: my-request-id
+  responses:
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
   securitySchemes:
     partnerToken:
       type: http

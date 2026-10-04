@@ -93,6 +93,15 @@ paths:
                   meta:
                     $ref: '#/components/schemas/Meta'
 components:
+  parameters:
+    RequestId:
+      name: x-palla-request-id
+      in: header
+      required: false
+      description: Partner-supplied request id echoed back in meta.requestId for tracing.
+      schema:
+        type: string
+        example: my-request-id
   schemas:
     Meta:
       type: object
@@ -123,6 +132,14 @@ components:
           type: integer
         itemTotal:
           type: integer
+    Link:
+      type: object
+      properties:
+        linkId:
+          type: string
+          example: lnk_Cx3xqci5
+        url:
+          type: string
     Error:
       type: object
       description: Error object returned on failure responses.
@@ -139,6 +156,13 @@ components:
           example: resource/missing
         resource:
           type: string
+    ErrorEnvelope:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        error:
+          $ref: '#/components/schemas/Error'
     DeleteLinkRequest:
       type: object
       required:
@@ -147,30 +171,6 @@ components:
         linkId:
           type: string
           example: lnk_CQ2N3GzF
-    Link:
-      type: object
-      properties:
-        linkId:
-          type: string
-          example: lnk_Cx3xqci5
-        url:
-          type: string
-    ErrorEnvelope:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        error:
-          $ref: '#/components/schemas/Error'
-  parameters:
-    RequestId:
-      name: x-palla-request-id
-      in: header
-      required: false
-      description: Partner-supplied request id echoed back in meta.requestId for tracing.
-      schema:
-        type: string
-        example: my-request-id
   securitySchemes:
     partnerToken:
       type: http
