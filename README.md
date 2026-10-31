@@ -64,6 +64,134 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Palla is a company surfaced as a portfolio company of cowboy-ventures and added to the API Evangelist network as a stub for enrichment. Sector: fintech. This profile is a lead awaiting the enrichment pipeline.
+Palla Financial is a fintech infrastructure company that powers instant cross-border peer-to-peer (P2P) money transfers to 180+ countries. The Palla Platform Partner API lets trusted partners embed transfers into their own apps: exchange partner client credentials for a user-scoped Bearer token, then create and manage a user's Account, encrypted Payment Methods, relationship Links, Relationships, and Transfers, with server-to-server transfer callbacks. Palla also ships embeddable UI (Embed, Checkout, Redirect) and a JavaScript Web SDK, with PCI-scoped card storage plus KYC, OFAC, card verification, fraud prevention, and transaction monitoring built in. Backed by Cowboy Ventures.
 
-Backed by: cowboy-ventures — https://www.palla.com
+**Areas:** Company · Fintech · Payments · Cross-Border Payments · Remittances · P2P Payments · Money Transfer · Embedded Finance
+
+## Palla on APIs.io
+
+Everything profiled for Palla is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/palla/](https://apis.io/providers/palla/)** — or go straight to one of the APIs or properties below.
+
+### APIs (7)
+
+- [Palla Accounts API](https://apis.io/apis/palla/palla-accounts-api/) — An Account belongs to a User authorized to use Palla.
+- [Palla Auth API](https://apis.io/apis/palla/palla-auth-api/) — Authentication endpoints return tokens for user access.
+- [Palla Health API](https://apis.io/apis/palla/palla-health-api/) — Service health.
+- [Palla Links API](https://apis.io/apis/palla/palla-links-api/) — A Link is a unique URL belonging to an Account, used to create Relationships.
+- [Palla Payment Methods API](https://apis.io/apis/palla/palla-payment-methods-api/) — Payment Methods are used to send and/or receive Transfers.
+- [Palla Relationships API](https://apis.io/apis/palla/palla-relationships-api/) — A Relationship is the connection between two Accounts.
+- [Palla Transfers API](https://apis.io/apis/palla/palla-transfers-api/) — A Transfer is a record of funds sent to a Relationship.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Palla Webhooks](https://apis.io/asyncapis/palla/palla-webhooks/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [palla-platform](https://apis.io/servers/palla/palla-platform/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Palla Agentic Access](https://apis.io/agentic-access/palla/palla-agentic-access/)
+
+#### Collections (7)
+
+Postman and Open Collection request collections.
+
+- [Palla Platform Partner Accounts API](https://apis.io/collections/palla/open-palla-accounts-api/)
+- [Palla Platform Partner Accounts Auth API](https://apis.io/collections/palla/open-palla-auth-api/)
+- [Palla Platform Partner Accounts Health API](https://apis.io/collections/palla/open-palla-health-api/)
+- [Palla Platform Partner Accounts Links API](https://apis.io/collections/palla/open-palla-links-api/)
+- [Palla Platform Partner Accounts Payment Methods API](https://apis.io/collections/palla/open-palla-payment-methods-api/)
+- [Palla Platform Partner Accounts Relationships API](https://apis.io/collections/palla/open-palla-relationships-api/)
+- [Palla Platform Partner Accounts Transfers API](https://apis.io/collections/palla/open-palla-transfers-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Palla Platform Overlay](https://apis.io/overlays/palla/palla-platform-overlay/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Palla Authentication](https://apis.io/security/palla/palla-authentication/)
+- [Palla Domain Security](https://apis.io/security/palla/palla-domain-security/)
+- [Palla Trust Center](https://apis.io/security/palla/palla-trust-center/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.palla.com)
+- [Documentation](https://docs.platform.palla.app)
+- [API reference](https://documenter.getpostman.com/view/306637/TzkyP11Z)
+- [Compliance](https://trust.palla.com/)
+- [Terms of service](https://palla.app/terms-and-conditions)
+- [Privacy policy](https://palla.app/privacy-policy)
+- [GitHub](https://github.com/PallaFinancial)
+- [Status](https://status.palla.app)
+
+## API Evangelist rating
+
+**Kin Score 38.1** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 78.6 |
+| Contract quality | 23.9 |
+| Contract governance | 4.5 |
+| Operational transparency | 26.3 |
+| Developer ergonomics | 51.8 |
+| Access clarity | 36.8 |
+
+**Agent readiness 31.5** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | documented (partial credit) |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 33.9** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/palla/](https://apis.io/providers/palla/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Palla: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/palla/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
